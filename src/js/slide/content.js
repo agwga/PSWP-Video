@@ -22,7 +22,7 @@ class Content {
     this.data = itemData;
     this.index = index;
 
-    /** @type {HTMLImageElement | HTMLVideoElement | undefined} */
+    /** @type {HTMLImageElement | HTMLDivElement | undefined} */
     this.element = undefined;
     /** @type {Placeholder | undefined} */
     this.placeholder = undefined;
@@ -81,7 +81,6 @@ class Content {
           this
         );
         this.placeholder = new Placeholder(
-          this.data.type,
           placeholderSrc,
           this.slide.container
         );
@@ -113,7 +112,7 @@ class Content {
         this.loadImage(isLazy);
       }
     } else {
-      this.element = createElement("pswp__content", "video");
+      this.element = createElement("pswp__content", "div");
       this.element.innerHTML = this.data.html || "";
     }
 
@@ -409,7 +408,7 @@ class Content {
       );
       this.element = createElement(
         "pswp__content pswp__error-msg-container",
-        "video"
+        "div"
       );
       this.element.appendChild(errorMsgEl);
       this.slide.container.innerText = "";

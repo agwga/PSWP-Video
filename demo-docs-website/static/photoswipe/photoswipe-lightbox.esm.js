@@ -504,32 +504,24 @@ class Eventable {
 
 class Placeholder {
   /**
-   * @param {string | undefined} contentType
    * @param {string | false} imageSrc
    * @param {HTMLElement} container
    */
-  constructor(contentType, imageSrc, container) {
+  constructor(imageSrc, container) {
     // Create placeholder
     // (stretched thumbnail or simple div behind the main image)
 
-    /** @type {HTMLImageElement | HTMLVideoElement | HTMLDivElement | null} */
-    this.element = createElement("pswp__img pswp__img--placeholder _1", // imageSrc ? "img" : "video",
-    contentType == undefined ? "img" : contentType == "video" ? "video" : "div", container);
+    /** @type {HTMLImageElement | HTMLVideoElement | null} */
+    this.element = createElement("pswp__img pswp__img--placeholder", imageSrc ? "img" : "video", container);
 
     if (imageSrc) {
-      //   const imgEl = /** @type {HTMLImageElement} */ (this.element);
-      //   imgEl.decoding = "async";
-      //   imgEl.alt = "";
-      //   imgEl.src = imageSrc;
-      //   imgEl.setAttribute("role", "presentation");
-      // } else {
-      const videoEl =
-      /** @type {HTMLVideoElement} */
+      const imgEl =
+      /** @type {HTMLImageElement} */
       this.element;
-      videoEl.setAttribute("muted", "muted");
-      videoEl.setAttribute("autoplay", "");
-      videoEl.setAttribute("loop", "");
-      videoEl.setAttribute("playsInline", "");
+      imgEl.decoding = "async";
+      imgEl.alt = "";
+      imgEl.src = imageSrc;
+      imgEl.setAttribute("role", "presentation");
     }
 
     this.element.setAttribute("aria-hidden", "true");
@@ -587,7 +579,7 @@ class Content {
     this.instance = instance;
     this.data = itemData;
     this.index = index;
-    /** @type {HTMLImageElement | HTMLVideoElement | undefined} */
+    /** @type {HTMLImageElement | HTMLDivElement | undefined} */
 
     this.element = undefined;
     /** @type {Placeholder | undefined} */
@@ -645,7 +637,7 @@ class Content {
         const placeholderSrc = this.instance.applyFilters("placeholderSrc", // use  image-based placeholder only for the first slide,
         // as rendering (even small stretched thumbnail) is an expensive operation
         this.data.msrc && this.slide.isFirstSlide ? this.data.msrc : false, this);
-        this.placeholder = new Placeholder(this.data.type, placeholderSrc, this.slide.container);
+        this.placeholder = new Placeholder(placeholderSrc, this.slide.container);
       } else {
         const placeholderEl = this.placeholder.element; // Add placeholder to DOM if it was already created
 
@@ -674,7 +666,7 @@ class Content {
         this.loadImage(isLazy);
       }
     } else {
-      this.element = createElement("pswp__content", "video");
+      this.element = createElement("pswp__content", "div");
       this.element.innerHTML = this.data.html || "";
     }
 
@@ -958,7 +950,7 @@ class Content {
       errorMsgEl =
       /** @type {HTMLDivElement} */
       this.instance.applyFilters("contentErrorElement", errorMsgEl, this);
-      this.element = createElement("pswp__content pswp__error-msg-container", "video");
+      this.element = createElement("pswp__content pswp__error-msg-container", "div");
       this.element.appendChild(errorMsgEl);
       this.slide.container.innerText = "";
       this.slide.container.appendChild(this.element);
