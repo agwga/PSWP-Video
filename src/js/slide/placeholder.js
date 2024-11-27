@@ -1,29 +1,45 @@
-import { createElement, setWidthHeight, toTransformString } from '../util/util.js';
+import {
+  createElement,
+  setWidthHeight,
+  toTransformString,
+} from "../util/util.js";
 
 class Placeholder {
   /**
+   * @param {string | undefined} contentType
    * @param {string | false} imageSrc
    * @param {HTMLElement} container
    */
-  constructor(imageSrc, container) {
+  constructor(contentType, imageSrc, container) {
     // Create placeholder
     // (stretched thumbnail or simple div behind the main image)
-    /** @type {HTMLImageElement | HTMLDivElement | null} */
+    /** @type {HTMLImageElement | HTMLVideoElement | HTMLDivElement | null} */
     this.element = createElement(
-      'pswp__img pswp__img--placeholder',
-      imageSrc ? 'img' : 'div',
+      "pswp__img pswp__img--placeholder",
+      // imageSrc ? "img" : "video",
+      contentType == undefined
+        ? "img"
+        : contentType == "video"
+        ? "video"
+        : "div",
       container
     );
 
-    if (imageSrc) {
-      const imgEl = /** @type {HTMLImageElement} */ (this.element);
-      imgEl.decoding = 'async';
-      imgEl.alt = '';
-      imgEl.src = imageSrc;
-      imgEl.setAttribute('role', 'presentation');
-    }
+    // if (imageSrc) {
+    //   const imgEl = /** @type {HTMLImageElement} */ (this.element);
+    //   imgEl.decoding = "async";
+    //   imgEl.alt = "";
+    //   imgEl.src = imageSrc;
+    //   imgEl.setAttribute("role", "presentation");
+    // } else {
+    //   const videoEl = /** @type {HTMLVideoElement} */ (this.element);
+    //   videoEl.setAttribute("muted", "muted");
+    //   videoEl.setAttribute("autoplay", "");
+    //   videoEl.setAttribute("loop", "");
+    //   videoEl.setAttribute("playsInline", "");
+    // }
 
-    this.element.setAttribute('aria-hidden', 'true');
+    this.element.setAttribute("aria-hidden", "true");
   }
 
   /**
@@ -35,12 +51,12 @@ class Placeholder {
       return;
     }
 
-    if (this.element.tagName === 'IMG') {
+    if (this.element.tagName === "IMG") {
       // Use transform scale() to modify img placeholder size
       // (instead of changing width/height directly).
       // This helps with performance, specifically in iOS15 Safari.
-      setWidthHeight(this.element, 250, 'auto');
-      this.element.style.transformOrigin = '0 0';
+      setWidthHeight(this.element, 250, "auto");
+      this.element.style.transformOrigin = "0 0";
       this.element.style.transform = toTransformString(0, 0, width / 250);
     } else {
       setWidthHeight(this.element, width, height);
