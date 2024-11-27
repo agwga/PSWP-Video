@@ -7,10 +7,10 @@ import {
 class Placeholder {
   /**
    * @param {string | undefined} contentType
-   * @param {string | false} imageSrc
+   * @param {string | false} contentSrc
    * @param {HTMLElement} container
    */
-  constructor(contentType, imageSrc, container) {
+  constructor(contentType, contentSrc, container) {
     // Create placeholder
     // (stretched thumbnail or simple div behind the main image)
     /** @type {HTMLImageElement | HTMLVideoElement | HTMLDivElement | null} */
@@ -25,19 +25,29 @@ class Placeholder {
       container
     );
 
-    // if (imageSrc) {
-    //   const imgEl = /** @type {HTMLImageElement} */ (this.element);
-    //   imgEl.decoding = "async";
-    //   imgEl.alt = "";
-    //   imgEl.src = imageSrc;
-    //   imgEl.setAttribute("role", "presentation");
-    // } else {
-    //   const videoEl = /** @type {HTMLVideoElement} */ (this.element);
-    //   videoEl.setAttribute("muted", "muted");
-    //   videoEl.setAttribute("autoplay", "");
-    //   videoEl.setAttribute("loop", "");
-    //   videoEl.setAttribute("playsInline", "");
-    // }
+    switch (contentType) {
+      case "video":
+        if (contentSrc) {
+          const videoEl = /** @type {HTMLVideoElement} */ (this.element);
+          videoEl.src = contentSrc;
+          videoEl.setAttribute("muted", "muted");
+          videoEl.setAttribute("autoplay", "");
+          videoEl.setAttribute("loop", "");
+          videoEl.setAttribute("playsInline", "");
+        }
+      case undefined:
+      case "image":
+        if (contentSrc) {
+          const imgEl = /** @type {HTMLImageElement} */ (this.element);
+          imgEl.decoding = "async";
+          imgEl.alt = "";
+          imgEl.src = contentSrc;
+          imgEl.setAttribute("role", "presentation");
+        }
+        break;
+      default:
+        break;
+    }
 
     this.element.setAttribute("aria-hidden", "true");
   }
