@@ -81,6 +81,7 @@ class Content {
           this
         );
         this.placeholder = new Placeholder(
+          this.data.type,
           placeholderSrc,
           this.slide.container
         );
