@@ -51,18 +51,18 @@ function toTransformString(x, y, scale) {
  */
 
 function setWidthHeight(el, w, h) {
-  el.style.width = typeof w === 'number' ? `${w}px` : w;
-  el.style.height = typeof h === 'number' ? `${h}px` : h;
+  el.style.width = typeof w === "number" ? `${w}px` : w;
+  el.style.height = typeof h === "number" ? `${h}px` : h;
 }
 /** @typedef {LOAD_STATE[keyof LOAD_STATE]} LoadState */
 
 /** @type {{ IDLE: 'idle'; LOADING: 'loading'; LOADED: 'loaded'; ERROR: 'error' }} */
 
 const LOAD_STATE = {
-  IDLE: 'idle',
-  LOADING: 'loading',
-  LOADED: 'loaded',
-  ERROR: 'error'
+  IDLE: "idle",
+  LOADING: "loading",
+  LOADED: "loaded",
+  ERROR: "error"
 };
 /**
  * Check if click or keydown event was dispatched
@@ -73,7 +73,7 @@ const LOAD_STATE = {
  */
 
 function specialKeyUsed(e) {
-  return 'button' in e && e.button === 1 || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey;
+  return "button" in e && e.button === 1 || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey;
 }
 /**
  * Parse `gallery` or `children` options.
@@ -93,7 +93,7 @@ function getElementsFromOption(option, legacySelector, parent = document) {
   } else if (option instanceof NodeList || Array.isArray(option)) {
     elements = Array.from(option);
   } else {
-    const selector = typeof option === 'string' ? option : legacySelector;
+    const selector = typeof option === "string" ? option : legacySelector;
 
     if (selector) {
       elements = Array.from(parent.querySelectorAll(selector));
@@ -110,7 +110,7 @@ function getElementsFromOption(option, legacySelector, parent = document) {
  */
 
 function isPswpClass(fn) {
-  return typeof fn === 'function' && fn.prototype && fn.prototype.goTo;
+  return typeof fn === "function" && fn.prototype && fn.prototype.goTo;
 }
 /**
  * Check if browser is Safari
@@ -511,20 +511,20 @@ class Placeholder {
     // Create placeholder
     // (stretched thumbnail or simple div behind the main image)
 
-    /** @type {HTMLImageElement | HTMLDivElement | null} */
-    this.element = createElement('pswp__img pswp__img--placeholder', imageSrc ? 'img' : 'div', container);
+    /** @type {HTMLImageElement | HTMLVideoElement | null} */
+    this.element = createElement("pswp__img pswp__img--placeholder", imageSrc ? "img" : "video", container);
 
     if (imageSrc) {
       const imgEl =
       /** @type {HTMLImageElement} */
       this.element;
-      imgEl.decoding = 'async';
-      imgEl.alt = '';
+      imgEl.decoding = "async";
+      imgEl.alt = "";
       imgEl.src = imageSrc;
-      imgEl.setAttribute('role', 'presentation');
+      imgEl.setAttribute("role", "presentation");
     }
 
-    this.element.setAttribute('aria-hidden', 'true');
+    this.element.setAttribute("aria-hidden", "true");
   }
   /**
    * @param {number} width
@@ -537,12 +537,12 @@ class Placeholder {
       return;
     }
 
-    if (this.element.tagName === 'IMG') {
+    if (this.element.tagName === "IMG") {
       // Use transform scale() to modify img placeholder size
       // (instead of changing width/height directly).
       // This helps with performance, specifically in iOS15 Safari.
-      setWidthHeight(this.element, 250, 'auto');
-      this.element.style.transformOrigin = '0 0';
+      setWidthHeight(this.element, 250, "auto");
+      this.element.style.transformOrigin = "0 0";
       this.element.style.transform = toTransformString(0, 0, width / 250);
     } else {
       setWidthHeight(this.element, width, height);
@@ -602,12 +602,12 @@ class Content {
     if (this.data.type) {
       this.type = this.data.type;
     } else if (this.data.src) {
-      this.type = 'image';
+      this.type = "image";
     } else {
-      this.type = 'html';
+      this.type = "html";
     }
 
-    this.instance.dispatch('contentInit', {
+    this.instance.dispatch("contentInit", {
       content: this
     });
   }
@@ -634,7 +634,7 @@ class Content {
   load(isLazy, reload) {
     if (this.slide && this.usePlaceholder()) {
       if (!this.placeholder) {
-        const placeholderSrc = this.instance.applyFilters('placeholderSrc', // use  image-based placeholder only for the first slide,
+        const placeholderSrc = this.instance.applyFilters("placeholderSrc", // use  image-based placeholder only for the first slide,
         // as rendering (even small stretched thumbnail) is an expensive operation
         this.data.msrc && this.slide.isFirstSlide ? this.data.msrc : false, this);
         this.placeholder = new Placeholder(placeholderSrc, this.slide.container);
@@ -651,7 +651,7 @@ class Content {
       return;
     }
 
-    if (this.instance.dispatch('contentLoad', {
+    if (this.instance.dispatch("contentLoad", {
       content: this,
       isLazy
     }).defaultPrevented) {
@@ -659,15 +659,15 @@ class Content {
     }
 
     if (this.isImageContent()) {
-      this.element = createElement('pswp__img', 'img'); // Start loading only after width is defined, as sizes might depend on it.
+      this.element = createElement("pswp__img", "img"); // Start loading only after width is defined, as sizes might depend on it.
       // Due to Safari feature, we must define sizes before srcset.
 
       if (this.displayedImageWidth) {
         this.loadImage(isLazy);
       }
     } else {
-      this.element = createElement('pswp__content', 'div');
-      this.element.innerHTML = this.data.html || '';
+      this.element = createElement("pswp__content", "div");
+      this.element.innerHTML = this.data.html || "";
     }
 
     if (reload && this.slide) {
@@ -684,7 +684,7 @@ class Content {
   loadImage(isLazy) {
     var _this$data$src, _this$data$alt;
 
-    if (!this.isImageContent() || !this.element || this.instance.dispatch('contentLoadImage', {
+    if (!this.isImageContent() || !this.element || this.instance.dispatch("contentLoadImage", {
       content: this,
       isLazy
     }).defaultPrevented) {
@@ -700,8 +700,8 @@ class Content {
       imageElement.srcset = this.data.srcset;
     }
 
-    imageElement.src = (_this$data$src = this.data.src) !== null && _this$data$src !== void 0 ? _this$data$src : '';
-    imageElement.alt = (_this$data$alt = this.data.alt) !== null && _this$data$alt !== void 0 ? _this$data$alt : '';
+    imageElement.src = (_this$data$src = this.data.src) !== null && _this$data$src !== void 0 ? _this$data$src : "";
+    imageElement.alt = (_this$data$alt = this.data.alt) !== null && _this$data$alt !== void 0 ? _this$data$alt : "";
     this.state = LOAD_STATE.LOADING;
 
     if (imageElement.complete) {
@@ -737,7 +737,7 @@ class Content {
     this.state = LOAD_STATE.LOADED;
 
     if (this.slide && this.element) {
-      this.instance.dispatch('loadComplete', {
+      this.instance.dispatch("loadComplete", {
         slide: this.slide,
         content: this
       }); // if content is reloaded
@@ -762,12 +762,12 @@ class Content {
 
     if (this.slide) {
       this.displayError();
-      this.instance.dispatch('loadComplete', {
+      this.instance.dispatch("loadComplete", {
         slide: this.slide,
         isError: true,
         content: this
       });
-      this.instance.dispatch('loadError', {
+      this.instance.dispatch("loadError", {
         slide: this.slide,
         content: this
       });
@@ -779,7 +779,7 @@ class Content {
 
 
   isLoading() {
-    return this.instance.applyFilters('isContentLoading', this.state === LOAD_STATE.LOADING, this);
+    return this.instance.applyFilters("isContentLoading", this.state === LOAD_STATE.LOADING, this);
   }
   /**
    * @returns {Boolean} If the content is in error state
@@ -795,7 +795,7 @@ class Content {
 
 
   isImageContent() {
-    return this.type === 'image';
+    return this.type === "image";
   }
   /**
    * Update content size
@@ -814,7 +814,7 @@ class Content {
       this.placeholder.setDisplayedSize(width, height);
     }
 
-    if (this.instance.dispatch('contentResize', {
+    if (this.instance.dispatch("contentResize", {
       content: this,
       width,
       height
@@ -836,7 +836,7 @@ class Content {
       }
 
       if (this.slide) {
-        this.instance.dispatch('imageSizeChange', {
+        this.instance.dispatch("imageSizeChange", {
           slide: this.slide,
           width,
           height,
@@ -851,7 +851,7 @@ class Content {
 
 
   isZoomable() {
-    return this.instance.applyFilters('isContentZoomable', this.isImageContent() && this.state !== LOAD_STATE.ERROR, this);
+    return this.instance.applyFilters("isContentZoomable", this.isImageContent() && this.state !== LOAD_STATE.ERROR, this);
   }
   /**
    * Update image srcset sizes attribute based on width and height
@@ -871,10 +871,10 @@ class Content {
     const image =
     /** @type HTMLImageElement */
     this.element;
-    const sizesWidth = this.instance.applyFilters('srcsetSizesWidth', this.displayedImageWidth, this);
+    const sizesWidth = this.instance.applyFilters("srcsetSizesWidth", this.displayedImageWidth, this);
 
     if (!image.dataset.largestUsedSize || sizesWidth > parseInt(image.dataset.largestUsedSize, 10)) {
-      image.sizes = sizesWidth + 'px';
+      image.sizes = sizesWidth + "px";
       image.dataset.largestUsedSize = String(sizesWidth);
     }
   }
@@ -884,7 +884,7 @@ class Content {
 
 
   usePlaceholder() {
-    return this.instance.applyFilters('useContentPlaceholder', this.isImageContent(), this);
+    return this.instance.applyFilters("useContentPlaceholder", this.isImageContent(), this);
   }
   /**
    * Preload content with lazy-loading param
@@ -892,7 +892,7 @@ class Content {
 
 
   lazyLoad() {
-    if (this.instance.dispatch('contentLazyLoad', {
+    if (this.instance.dispatch("contentLazyLoad", {
       content: this
     }).defaultPrevented) {
       return;
@@ -906,7 +906,7 @@ class Content {
 
 
   keepPlaceholder() {
-    return this.instance.applyFilters('isKeepingPlaceholder', this.isLoading(), this);
+    return this.instance.applyFilters("isKeepingPlaceholder", this.isLoading(), this);
   }
   /**
    * Destroy the content
@@ -917,7 +917,7 @@ class Content {
     this.hasSlide = false;
     this.slide = undefined;
 
-    if (this.instance.dispatch('contentDestroy', {
+    if (this.instance.dispatch("contentDestroy", {
       content: this
     }).defaultPrevented) {
       return;
@@ -945,14 +945,14 @@ class Content {
     if (this.slide) {
       var _this$instance$option, _this$instance$option2;
 
-      let errorMsgEl = createElement('pswp__error-msg', 'div');
-      errorMsgEl.innerText = (_this$instance$option = (_this$instance$option2 = this.instance.options) === null || _this$instance$option2 === void 0 ? void 0 : _this$instance$option2.errorMsg) !== null && _this$instance$option !== void 0 ? _this$instance$option : '';
+      let errorMsgEl = createElement("pswp__error-msg", "div");
+      errorMsgEl.innerText = (_this$instance$option = (_this$instance$option2 = this.instance.options) === null || _this$instance$option2 === void 0 ? void 0 : _this$instance$option2.errorMsg) !== null && _this$instance$option !== void 0 ? _this$instance$option : "";
       errorMsgEl =
       /** @type {HTMLDivElement} */
-      this.instance.applyFilters('contentErrorElement', errorMsgEl, this);
-      this.element = createElement('pswp__content pswp__error-msg-container', 'div');
+      this.instance.applyFilters("contentErrorElement", errorMsgEl, this);
+      this.element = createElement("pswp__content pswp__error-msg-container", "div");
       this.element.appendChild(errorMsgEl);
-      this.slide.container.innerText = '';
+      this.slide.container.innerText = "";
       this.slide.container.appendChild(this.element);
       this.slide.updateContentSize(true);
       this.removePlaceholder();
@@ -975,13 +975,13 @@ class Content {
       return;
     }
 
-    if (this.instance.dispatch('contentAppend', {
+    if (this.instance.dispatch("contentAppend", {
       content: this
     }).defaultPrevented) {
       return;
     }
 
-    const supportsDecode = ('decode' in this.element);
+    const supportsDecode = ("decode" in this.element);
 
     if (this.isImageContent()) {
       // Use decode() on nearby slides
@@ -1021,7 +1021,7 @@ class Content {
 
 
   activate() {
-    if (this.instance.dispatch('contentActivate', {
+    if (this.instance.dispatch("contentActivate", {
       content: this
     }).defaultPrevented || !this.slide) {
       return;
@@ -1036,7 +1036,7 @@ class Content {
     }
 
     if (this.slide.holderElement) {
-      this.slide.holderElement.setAttribute('aria-hidden', 'false');
+      this.slide.holderElement.setAttribute("aria-hidden", "false");
     }
   }
   /**
@@ -1045,12 +1045,12 @@ class Content {
 
 
   deactivate() {
-    this.instance.dispatch('contentDeactivate', {
+    this.instance.dispatch("contentDeactivate", {
       content: this
     });
 
     if (this.slide && this.slide.holderElement) {
-      this.slide.holderElement.setAttribute('aria-hidden', 'true');
+      this.slide.holderElement.setAttribute("aria-hidden", "true");
     }
   }
   /**
@@ -1061,7 +1061,7 @@ class Content {
   remove() {
     this.isAttached = false;
 
-    if (this.instance.dispatch('contentRemove', {
+    if (this.instance.dispatch("contentRemove", {
       content: this
     }).defaultPrevented) {
       return;
@@ -1085,7 +1085,7 @@ class Content {
       return;
     }
 
-    if (this.instance.dispatch('contentAppendImage', {
+    if (this.instance.dispatch("contentAppendImage", {
       content: this
     }).defaultPrevented) {
       return;

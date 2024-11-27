@@ -3,22 +3,22 @@ import {
   equalizePoints,
   pointsEqual,
   clamp,
-} from './util/util.js';
+} from "./util/util.js";
 
-import DOMEvents from './util/dom-events.js';
-import Slide from './slide/slide.js';
-import Gestures from './gestures/gestures.js';
-import MainScroll from './main-scroll.js';
+import DOMEvents from "./util/dom-events.js";
+import Slide from "./slide/slide.js";
+import Gestures from "./gestures/gestures.js";
+import MainScroll from "./main-scroll.js";
 
-import Keyboard from './keyboard.js';
-import Animations from './util/animations.js';
-import ScrollWheel from './scroll-wheel.js';
-import UI from './ui/ui.js';
-import { getViewportSize } from './util/viewport-size.js';
-import { getThumbBounds } from './slide/get-thumb-bounds.js';
-import PhotoSwipeBase from './core/base.js';
-import Opener from './opener.js';
-import ContentLoader from './slide/loader.js';
+import Keyboard from "./keyboard.js";
+import Animations from "./util/animations.js";
+import ScrollWheel from "./scroll-wheel.js";
+import UI from "./ui/ui.js";
+import { getViewportSize } from "./util/viewport-size.js";
+import { getThumbBounds } from "./slide/get-thumb-bounds.js";
+import PhotoSwipeBase from "./core/base.js";
+import Opener from "./opener.js";
+import ContentLoader from "./slide/loader.js";
 
 /**
  * @template T
@@ -239,18 +239,18 @@ const defaultOptions = {
   returnFocus: true,
   maxWidthToAnimate: 4000,
   clickToCloseNonZoomable: true,
-  imageClickAction: 'zoom-or-close',
-  bgClickAction: 'close',
-  tapAction: 'toggle-controls',
-  doubleTapAction: 'zoom',
-  indexIndicatorSep: ' / ',
+  imageClickAction: "zoom-or-close",
+  bgClickAction: "close",
+  tapAction: "toggle-controls",
+  doubleTapAction: "zoom",
+  indexIndicatorSep: " / ",
   preloaderDelay: 2000,
   bgOpacity: 0.8,
 
   index: 0,
-  errorMsg: 'The image cannot be loaded',
+  errorMsg: "The image cannot be loaded",
   preload: [1, 2],
-  easing: 'cubic-bezier(.4,0,.22,1)'
+  easing: "cubic-bezier(.4,0,.22,1)",
 };
 
 /**
@@ -332,34 +332,36 @@ class PhotoSwipe extends PhotoSwipeBase {
     }
 
     this.isOpen = true;
-    this.dispatch('init'); // legacy
-    this.dispatch('beforeOpen');
+    this.dispatch("init"); // legacy
+    this.dispatch("beforeOpen");
 
     this._createMainStructure();
 
     // add classes to the root element of PhotoSwipe
-    let rootClasses = 'pswp--open';
+    let rootClasses = "pswp--open";
     if (this.gestures.supportsTouch) {
-      rootClasses += ' pswp--touch';
+      rootClasses += " pswp--touch";
     }
     if (this.options.mainClass) {
-      rootClasses += ' ' + this.options.mainClass;
+      rootClasses += " " + this.options.mainClass;
     }
     if (this.element) {
-      this.element.className += ' ' + rootClasses;
+      this.element.className += " " + rootClasses;
     }
 
     this.currIndex = this.options.index || 0;
     this.potentialIndex = this.currIndex;
-    this.dispatch('firstUpdate'); // starting index can be modified here
+    this.dispatch("firstUpdate"); // starting index can be modified here
 
     // initialize scroll wheel handler to block the scroll
     this.scrollWheel = new ScrollWheel(this);
 
     // sanitize index
-    if (Number.isNaN(this.currIndex)
-        || this.currIndex < 0
-        || this.currIndex >= this.getNumItems()) {
+    if (
+      Number.isNaN(this.currIndex) ||
+      this.currIndex < 0 ||
+      this.currIndex >= this.getNumItems()
+    ) {
       this.currIndex = 0;
     }
 
@@ -374,26 +376,26 @@ class PhotoSwipe extends PhotoSwipeBase {
     this.offset.y = window.pageYOffset;
 
     this._initialItemData = this.getItemData(this.currIndex);
-    this.dispatch('gettingData', {
+    this.dispatch("gettingData", {
       index: this.currIndex,
       data: this._initialItemData,
-      slide: undefined
+      slide: undefined,
     });
 
     // *Layout* - calculate size and position of elements here
     this._initialThumbBounds = this.getThumbBounds();
-    this.dispatch('initialLayout');
+    this.dispatch("initialLayout");
 
-    this.on('openingAnimationEnd', () => {
+    this.on("openingAnimationEnd", () => {
       const { itemHolders } = this.mainScroll;
 
       // Add content to the previous and next slide
       if (itemHolders[0]) {
-        itemHolders[0].el.style.display = 'block';
+        itemHolders[0].el.style.display = "block";
         this.setContent(itemHolders[0], this.currIndex - 1);
       }
       if (itemHolders[2]) {
-        itemHolders[2].el.style.display = 'block';
+        itemHolders[2].el.style.display = "block";
         this.setContent(itemHolders[2], this.currIndex + 1);
       }
 
@@ -401,20 +403,24 @@ class PhotoSwipe extends PhotoSwipeBase {
 
       this.contentLoader.updateLazy();
 
-      this.events.add(window, 'resize', this._handlePageResize.bind(this));
-      this.events.add(window, 'scroll', this._updatePageScrollOffset.bind(this));
-      this.dispatch('bindEvents');
+      this.events.add(window, "resize", this._handlePageResize.bind(this));
+      this.events.add(
+        window,
+        "scroll",
+        this._updatePageScrollOffset.bind(this)
+      );
+      this.dispatch("bindEvents");
     });
 
     // set content for center slide (first time)
     if (this.mainScroll.itemHolders[1]) {
       this.setContent(this.mainScroll.itemHolders[1], this.currIndex);
     }
-    this.dispatch('change');
+    this.dispatch("change");
 
     this.opener.open();
 
-    this.dispatch('afterInit');
+    this.dispatch("afterInit");
 
     return true;
   }
@@ -499,7 +505,7 @@ class PhotoSwipe extends PhotoSwipeBase {
 
     this.isDestroying = true;
 
-    this.dispatch('close');
+    this.dispatch("close");
 
     this.events.removeAll();
     this.opener.close();
@@ -514,12 +520,12 @@ class PhotoSwipe extends PhotoSwipeBase {
    */
   destroy() {
     if (!this.isDestroying) {
-      this.options.showHideAnimationType = 'none';
+      this.options.showHideAnimationType = "none";
       this.close();
       return;
     }
 
-    this.dispatch('destroy');
+    this.dispatch("destroy");
 
     this._listeners = {};
 
@@ -562,9 +568,8 @@ class PhotoSwipe extends PhotoSwipeBase {
       }
     });
 
-    this.dispatch('change');
+    this.dispatch("change");
   }
-
 
   /**
    * Set slide content
@@ -610,7 +615,7 @@ class PhotoSwipe extends PhotoSwipeBase {
   getViewportCenterPoint() {
     return {
       x: this.viewportSize.x / 2,
-      y: this.viewportSize.y / 2
+      y: this.viewportSize.y / 2,
     };
   }
 
@@ -644,23 +649,23 @@ class PhotoSwipe extends PhotoSwipeBase {
     //this._prevViewportSize.y = newHeight;
     equalizePoints(this._prevViewportSize, newViewportSize);
 
-    this.dispatch('beforeResize');
+    this.dispatch("beforeResize");
 
     equalizePoints(this.viewportSize, this._prevViewportSize);
 
     this._updatePageScrollOffset();
 
-    this.dispatch('viewportSize');
+    this.dispatch("viewportSize");
 
     // Resize slides only after opener animation is finished
     // and don't re-calculate size on inital size update
     this.mainScroll.resize(this.opener.isOpen);
 
-    if (!this.hasMouse && window.matchMedia('(any-hover: hover)').matches) {
+    if (!this.hasMouse && window.matchMedia("(any-hover: hover)").matches) {
       this.mouseDetected();
     }
 
-    this.dispatch('resize');
+    this.dispatch("resize");
   }
 
   /**
@@ -679,7 +684,7 @@ class PhotoSwipe extends PhotoSwipeBase {
   mouseDetected() {
     if (!this.hasMouse) {
       this.hasMouse = true;
-      this.element?.classList.add('pswp--has_mouse');
+      this.element?.classList.add("pswp--has_mouse");
     }
   }
 
@@ -721,7 +726,7 @@ class PhotoSwipe extends PhotoSwipeBase {
   setScrollOffset(x, y) {
     this.offset.x = x;
     this.offset.y = y;
-    this.dispatch('updateScrollOffset');
+    this.dispatch("updateScrollOffset");
   }
 
   /**
@@ -732,23 +737,27 @@ class PhotoSwipe extends PhotoSwipeBase {
    */
   _createMainStructure() {
     // root DOM element of PhotoSwipe (.pswp)
-    this.element = createElement('pswp', 'div');
-    this.element.setAttribute('tabindex', '-1');
-    this.element.setAttribute('role', 'dialog');
+    this.element = createElement("pswp", "div");
+    this.element.setAttribute("tabindex", "-1");
+    this.element.setAttribute("role", "dialog");
 
     // template is legacy prop
     this.template = this.element;
 
     // Background is added as a separate element,
     // as animating opacity is faster than animating rgba()
-    this.bg = createElement('pswp__bg', 'div', this.element);
-    this.scrollWrap = createElement('pswp__scroll-wrap', 'section', this.element);
-    this.container = createElement('pswp__container', 'div', this.scrollWrap);
+    this.bg = createElement("pswp__bg", "div", this.element);
+    this.scrollWrap = createElement(
+      "pswp__scroll-wrap",
+      "section",
+      this.element
+    );
+    this.container = createElement("pswp__container", "div", this.scrollWrap);
 
     // aria pattern: carousel
-    this.scrollWrap.setAttribute('aria-roledescription', 'carousel');
-    this.container.setAttribute('aria-live', 'off');
-    this.container.setAttribute('id', 'pswp__items');
+    this.scrollWrap.setAttribute("aria-roledescription", "carousel");
+    this.container.setAttribute("aria-live", "off");
+    this.container.setAttribute("id", "pswp__items");
 
     this.mainScroll.appendHolders();
 
@@ -758,7 +767,6 @@ class PhotoSwipe extends PhotoSwipeBase {
     // append to DOM
     (this.options.appendToEl || document.body).appendChild(this.element);
   }
-
 
   /**
    * Get position and dimensions of small thumbnail
@@ -781,7 +789,7 @@ class PhotoSwipe extends PhotoSwipeBase {
    * @returns Boolean
    */
   canLoop() {
-    return (this.options.loop && this.getNumItems() > 2);
+    return this.options.loop && this.getNumItems() > 2;
   }
 
   /**
@@ -790,15 +798,15 @@ class PhotoSwipe extends PhotoSwipeBase {
    * @returns {PreparedPhotoSwipeOptions}
    */
   _prepareOptions(options) {
-    if (window.matchMedia('(prefers-reduced-motion), (update: slow)').matches) {
-      options.showHideAnimationType = 'none';
+    if (window.matchMedia("(prefers-reduced-motion), (update: slow)").matches) {
+      options.showHideAnimationType = "none";
       options.zoomAnimationDuration = 0;
     }
 
     /** @type {PreparedPhotoSwipeOptions} */
     return {
       ...defaultOptions,
-      ...options
+      ...options,
     };
   }
 }

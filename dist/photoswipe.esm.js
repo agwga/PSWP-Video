@@ -114,7 +114,7 @@ function toTransformString(x, y, scale) {
 function setTransform(el, x, y, scale) {
   el.style.transform = toTransformString(x, y, scale);
 }
-const defaultCSSEasing = 'cubic-bezier(.4,0,.22,1)';
+const defaultCSSEasing = "cubic-bezier(.4,0,.22,1)";
 /**
  * Apply CSS transition to element
  *
@@ -128,7 +128,7 @@ function setTransitionStyle(el, prop, duration, ease) {
   // inOut: 'cubic-bezier(.4, 0, .22, 1)', // for "toggle state" transitions
   // out: 'cubic-bezier(0, 0, .22, 1)', // for "show" transitions
   // in: 'cubic-bezier(.4, 0, 1, 1)'// for "hide" transitions
-  el.style.transition = prop ? `${prop} ${duration}ms ${ease || defaultCSSEasing}` : 'none';
+  el.style.transition = prop ? `${prop} ${duration}ms ${ease || defaultCSSEasing}` : "none";
 }
 /**
  * Apply width and height CSS properties to element
@@ -139,8 +139,8 @@ function setTransitionStyle(el, prop, duration, ease) {
  */
 
 function setWidthHeight(el, w, h) {
-  el.style.width = typeof w === 'number' ? `${w}px` : w;
-  el.style.height = typeof h === 'number' ? `${h}px` : h;
+  el.style.width = typeof w === "number" ? `${w}px` : w;
+  el.style.height = typeof h === "number" ? `${h}px` : h;
 }
 /**
  * @param {HTMLElement} el
@@ -155,7 +155,7 @@ function removeTransitionStyle(el) {
  */
 
 function decodeImage(img) {
-  if ('decode' in img) {
+  if ("decode" in img) {
     return img.decode().catch(() => {});
   }
 
@@ -174,10 +174,10 @@ function decodeImage(img) {
 /** @type {{ IDLE: 'idle'; LOADING: 'loading'; LOADED: 'loaded'; ERROR: 'error' }} */
 
 const LOAD_STATE = {
-  IDLE: 'idle',
-  LOADING: 'loading',
-  LOADED: 'loaded',
-  ERROR: 'error'
+  IDLE: "idle",
+  LOADING: "loading",
+  LOADED: "loaded",
+  ERROR: "error"
 };
 /**
  * Check if click or keydown event was dispatched
@@ -188,7 +188,7 @@ const LOAD_STATE = {
  */
 
 function specialKeyUsed(e) {
-  return 'button' in e && e.button === 1 || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey;
+  return "button" in e && e.button === 1 || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey;
 }
 /**
  * Parse `gallery` or `children` options.
@@ -208,7 +208,7 @@ function getElementsFromOption(option, legacySelector, parent = document) {
   } else if (option instanceof NodeList || Array.isArray(option)) {
     elements = Array.from(option);
   } else {
-    const selector = typeof option === 'string' ? option : legacySelector;
+    const selector = typeof option === "string" ? option : legacySelector;
 
     if (selector) {
       elements = Array.from(parent.querySelectorAll(selector));
@@ -756,13 +756,13 @@ class Slide {
     };
     this.isFirstSlide = this.isActive && !pswp.opener.isOpen;
     this.zoomLevels = new ZoomLevel(pswp.options, data, index, pswp);
-    this.pswp.dispatch('gettingData', {
+    this.pswp.dispatch("gettingData", {
       slide: this,
       data: this.data,
       index
     });
     this.content = this.pswp.contentLoader.getContentBySlide(this);
-    this.container = createElement('pswp__zoom-wrap', 'div');
+    this.container = createElement("pswp__zoom-wrap", "div");
     /** @type {HTMLElement | null} */
 
     this.holderElement = null;
@@ -777,7 +777,7 @@ class Slide {
     this.bounds = new PanBounds(this);
     this.prevDisplayedWidth = -1;
     this.prevDisplayedHeight = -1;
-    this.pswp.dispatch('slideInit', {
+    this.pswp.dispatch("slideInit", {
       slide: this
     });
   }
@@ -806,7 +806,7 @@ class Slide {
 
   append(holderElement) {
     this.holderElement = holderElement;
-    this.container.style.transformOrigin = '0 0'; // Slide appended to DOM
+    this.container.style.transformOrigin = "0 0"; // Slide appended to DOM
 
     if (!this.data) {
       return;
@@ -818,11 +818,11 @@ class Slide {
     this.appendHeavy();
     this.holderElement.appendChild(this.container);
     this.zoomAndPanToInitial();
-    this.pswp.dispatch('firstZoomPan', {
+    this.pswp.dispatch("firstZoomPan", {
       slide: this
     });
     this.applyCurrentZoomPan();
-    this.pswp.dispatch('afterSetContent', {
+    this.pswp.dispatch("afterSetContent", {
       slide: this
     });
 
@@ -833,7 +833,7 @@ class Slide {
 
   load() {
     this.content.load(false);
-    this.pswp.dispatch('slideLoad', {
+    this.pswp.dispatch("slideLoad", {
       slide: this
     });
   }
@@ -856,7 +856,7 @@ class Slide {
       return;
     }
 
-    if (this.pswp.dispatch('appendHeavy', {
+    if (this.pswp.dispatch("appendHeavy", {
       slide: this
     }).defaultPrevented) {
       return;
@@ -864,7 +864,7 @@ class Slide {
 
     this.heavyAppended = true;
     this.content.append();
-    this.pswp.dispatch('appendHeavyContent', {
+    this.pswp.dispatch("appendHeavyContent", {
       slide: this
     });
   }
@@ -880,7 +880,7 @@ class Slide {
     this.isActive = true;
     this.appendHeavy();
     this.content.activate();
-    this.pswp.dispatch('slideActivate', {
+    this.pswp.dispatch("slideActivate", {
       slide: this
     });
   }
@@ -905,7 +905,7 @@ class Slide {
     this.zoomAndPanToInitial();
     this.applyCurrentZoomPan();
     this.updateContentSize();
-    this.pswp.dispatch('slideDeactivate', {
+    this.pswp.dispatch("slideDeactivate", {
       slide: this
     });
   }
@@ -919,7 +919,7 @@ class Slide {
     this.content.hasSlide = false;
     this.content.remove();
     this.container.remove();
-    this.pswp.dispatch('slideDestroy', {
+    this.pswp.dispatch("slideDestroy", {
       slide: this
     });
   }
@@ -982,7 +982,7 @@ class Slide {
 
     return false;
   }
-  /** @returns {HTMLImageElement | HTMLDivElement | null | undefined} */
+  /** @returns {HTMLImageElement | HTMLVideoElement | null | undefined} */
 
 
   getPlaceholderElement() {
@@ -1010,7 +1010,7 @@ class Slide {
       return;
     }
 
-    pswp.dispatch('beforeZoomTo', {
+    pswp.dispatch("beforeZoomTo", {
       destZoomLevel,
       centerPoint,
       transitionDuration
@@ -1030,8 +1030,8 @@ class Slide {
 
 
     this.setZoomLevel(destZoomLevel);
-    this.pan.x = this.calculateZoomToPanOffset('x', centerPoint, prevZoomLevel);
-    this.pan.y = this.calculateZoomToPanOffset('y', centerPoint, prevZoomLevel);
+    this.pan.x = this.calculateZoomToPanOffset("x", centerPoint, prevZoomLevel);
+    this.pan.y = this.calculateZoomToPanOffset("y", centerPoint, prevZoomLevel);
     roundPoint(this.pan);
 
     const finishTransition = () => {
@@ -1045,7 +1045,7 @@ class Slide {
     } else {
       pswp.animations.startTransition({
         isPan: true,
-        name: 'zoomTo',
+        name: "zoomTo",
         target: this.container,
         transform: this.getCurrentTransform(),
         onComplete: finishTransition,
@@ -1116,8 +1116,8 @@ class Slide {
 
 
   panTo(panX, panY) {
-    this.pan.x = this.bounds.correctPan('x', panX);
-    this.pan.y = this.bounds.correctPan('y', panY);
+    this.pan.x = this.bounds.correctPan("x", panX);
+    this.pan.y = this.bounds.correctPan("y", panY);
     this.applyCurrentZoomPan();
   }
   /**
@@ -1148,7 +1148,7 @@ class Slide {
     this._applyZoomTransform(this.pan.x, this.pan.y, this.currZoomLevel);
 
     if (this === this.pswp.currSlide) {
-      this.pswp.dispatch('zoomPanUpdate', {
+      this.pswp.dispatch("zoomPanUpdate", {
         slide: this
       });
     }
@@ -1159,7 +1159,7 @@ class Slide {
 
     this.bounds.update(this.currZoomLevel);
     equalizePoints(this.pan, this.bounds.center);
-    this.pswp.dispatch('initialZoomPan', {
+    this.pswp.dispatch("initialZoomPan", {
       slide: this
     });
   }
@@ -1184,7 +1184,7 @@ class Slide {
     } = this;
     equalizePoints(this.panAreaSize, getPanAreaSize(pswp.options, pswp.viewportSize, this.data, this.index));
     this.zoomLevels.update(this.width, this.height, this.panAreaSize);
-    pswp.dispatch('calcSlideSize', {
+    pswp.dispatch("calcSlideSize", {
       slide: this
     });
   }
@@ -1219,7 +1219,7 @@ class Slide {
 
     this.currentResolution = newResolution;
     this.updateContentSize();
-    this.pswp.dispatch('resolutionChanged');
+    this.pswp.dispatch("resolutionChanged");
   }
 
 }
@@ -2835,12 +2835,12 @@ class MainScroll {
     // previous, current, and next
 
     for (let i = 0; i < 3; i++) {
-      const el = createElement('pswp__item', 'div', this.pswp.container);
-      el.setAttribute('role', 'group');
-      el.setAttribute('aria-roledescription', 'slide');
-      el.setAttribute('aria-hidden', 'true'); // hide nearby item holders until initial zoom animation finishes (to avoid extra Paints)
+      const el = createElement("pswp__item", "div", this.pswp.container);
+      el.setAttribute("role", "group");
+      el.setAttribute("aria-roledescription", "slide");
+      el.setAttribute("aria-hidden", "true"); // hide nearby item holders until initial zoom animation finishes (to avoid extra Paints)
 
-      el.style.display = i === 1 ? 'block' : 'none';
+      el.style.display = i === 1 ? "block" : "none";
       this.itemHolders.push({
         el //index: -1
 
@@ -3055,7 +3055,7 @@ class MainScroll {
       pswp.currSlide.applyCurrentZoomPan();
     }
 
-    pswp.dispatch('change');
+    pswp.dispatch("change");
   }
   /**
    * Move the X position of the main scroll container
@@ -3083,7 +3083,7 @@ class MainScroll {
       setTransform(this.pswp.container, x);
     }
 
-    this.pswp.dispatch('moveMainScroll', {
+    this.pswp.dispatch("moveMainScroll", {
       x,
       dragging: dragging !== null && dragging !== void 0 ? dragging : false
     });
@@ -4774,20 +4774,20 @@ class Placeholder {
     // Create placeholder
     // (stretched thumbnail or simple div behind the main image)
 
-    /** @type {HTMLImageElement | HTMLDivElement | null} */
-    this.element = createElement('pswp__img pswp__img--placeholder', imageSrc ? 'img' : 'div', container);
+    /** @type {HTMLImageElement | HTMLVideoElement | null} */
+    this.element = createElement("pswp__img pswp__img--placeholder", imageSrc ? "img" : "video", container);
 
     if (imageSrc) {
       const imgEl =
       /** @type {HTMLImageElement} */
       this.element;
-      imgEl.decoding = 'async';
-      imgEl.alt = '';
+      imgEl.decoding = "async";
+      imgEl.alt = "";
       imgEl.src = imageSrc;
-      imgEl.setAttribute('role', 'presentation');
+      imgEl.setAttribute("role", "presentation");
     }
 
-    this.element.setAttribute('aria-hidden', 'true');
+    this.element.setAttribute("aria-hidden", "true");
   }
   /**
    * @param {number} width
@@ -4800,12 +4800,12 @@ class Placeholder {
       return;
     }
 
-    if (this.element.tagName === 'IMG') {
+    if (this.element.tagName === "IMG") {
       // Use transform scale() to modify img placeholder size
       // (instead of changing width/height directly).
       // This helps with performance, specifically in iOS15 Safari.
-      setWidthHeight(this.element, 250, 'auto');
-      this.element.style.transformOrigin = '0 0';
+      setWidthHeight(this.element, 250, "auto");
+      this.element.style.transformOrigin = "0 0";
       this.element.style.transform = toTransformString(0, 0, width / 250);
     } else {
       setWidthHeight(this.element, width, height);
@@ -4865,12 +4865,12 @@ class Content {
     if (this.data.type) {
       this.type = this.data.type;
     } else if (this.data.src) {
-      this.type = 'image';
+      this.type = "image";
     } else {
-      this.type = 'html';
+      this.type = "html";
     }
 
-    this.instance.dispatch('contentInit', {
+    this.instance.dispatch("contentInit", {
       content: this
     });
   }
@@ -4897,7 +4897,7 @@ class Content {
   load(isLazy, reload) {
     if (this.slide && this.usePlaceholder()) {
       if (!this.placeholder) {
-        const placeholderSrc = this.instance.applyFilters('placeholderSrc', // use  image-based placeholder only for the first slide,
+        const placeholderSrc = this.instance.applyFilters("placeholderSrc", // use  image-based placeholder only for the first slide,
         // as rendering (even small stretched thumbnail) is an expensive operation
         this.data.msrc && this.slide.isFirstSlide ? this.data.msrc : false, this);
         this.placeholder = new Placeholder(placeholderSrc, this.slide.container);
@@ -4914,7 +4914,7 @@ class Content {
       return;
     }
 
-    if (this.instance.dispatch('contentLoad', {
+    if (this.instance.dispatch("contentLoad", {
       content: this,
       isLazy
     }).defaultPrevented) {
@@ -4922,15 +4922,15 @@ class Content {
     }
 
     if (this.isImageContent()) {
-      this.element = createElement('pswp__img', 'img'); // Start loading only after width is defined, as sizes might depend on it.
+      this.element = createElement("pswp__img", "img"); // Start loading only after width is defined, as sizes might depend on it.
       // Due to Safari feature, we must define sizes before srcset.
 
       if (this.displayedImageWidth) {
         this.loadImage(isLazy);
       }
     } else {
-      this.element = createElement('pswp__content', 'div');
-      this.element.innerHTML = this.data.html || '';
+      this.element = createElement("pswp__content", "div");
+      this.element.innerHTML = this.data.html || "";
     }
 
     if (reload && this.slide) {
@@ -4947,7 +4947,7 @@ class Content {
   loadImage(isLazy) {
     var _this$data$src, _this$data$alt;
 
-    if (!this.isImageContent() || !this.element || this.instance.dispatch('contentLoadImage', {
+    if (!this.isImageContent() || !this.element || this.instance.dispatch("contentLoadImage", {
       content: this,
       isLazy
     }).defaultPrevented) {
@@ -4963,8 +4963,8 @@ class Content {
       imageElement.srcset = this.data.srcset;
     }
 
-    imageElement.src = (_this$data$src = this.data.src) !== null && _this$data$src !== void 0 ? _this$data$src : '';
-    imageElement.alt = (_this$data$alt = this.data.alt) !== null && _this$data$alt !== void 0 ? _this$data$alt : '';
+    imageElement.src = (_this$data$src = this.data.src) !== null && _this$data$src !== void 0 ? _this$data$src : "";
+    imageElement.alt = (_this$data$alt = this.data.alt) !== null && _this$data$alt !== void 0 ? _this$data$alt : "";
     this.state = LOAD_STATE.LOADING;
 
     if (imageElement.complete) {
@@ -5000,7 +5000,7 @@ class Content {
     this.state = LOAD_STATE.LOADED;
 
     if (this.slide && this.element) {
-      this.instance.dispatch('loadComplete', {
+      this.instance.dispatch("loadComplete", {
         slide: this.slide,
         content: this
       }); // if content is reloaded
@@ -5025,12 +5025,12 @@ class Content {
 
     if (this.slide) {
       this.displayError();
-      this.instance.dispatch('loadComplete', {
+      this.instance.dispatch("loadComplete", {
         slide: this.slide,
         isError: true,
         content: this
       });
-      this.instance.dispatch('loadError', {
+      this.instance.dispatch("loadError", {
         slide: this.slide,
         content: this
       });
@@ -5042,7 +5042,7 @@ class Content {
 
 
   isLoading() {
-    return this.instance.applyFilters('isContentLoading', this.state === LOAD_STATE.LOADING, this);
+    return this.instance.applyFilters("isContentLoading", this.state === LOAD_STATE.LOADING, this);
   }
   /**
    * @returns {Boolean} If the content is in error state
@@ -5058,7 +5058,7 @@ class Content {
 
 
   isImageContent() {
-    return this.type === 'image';
+    return this.type === "image";
   }
   /**
    * Update content size
@@ -5077,7 +5077,7 @@ class Content {
       this.placeholder.setDisplayedSize(width, height);
     }
 
-    if (this.instance.dispatch('contentResize', {
+    if (this.instance.dispatch("contentResize", {
       content: this,
       width,
       height
@@ -5099,7 +5099,7 @@ class Content {
       }
 
       if (this.slide) {
-        this.instance.dispatch('imageSizeChange', {
+        this.instance.dispatch("imageSizeChange", {
           slide: this.slide,
           width,
           height,
@@ -5114,7 +5114,7 @@ class Content {
 
 
   isZoomable() {
-    return this.instance.applyFilters('isContentZoomable', this.isImageContent() && this.state !== LOAD_STATE.ERROR, this);
+    return this.instance.applyFilters("isContentZoomable", this.isImageContent() && this.state !== LOAD_STATE.ERROR, this);
   }
   /**
    * Update image srcset sizes attribute based on width and height
@@ -5134,10 +5134,10 @@ class Content {
     const image =
     /** @type HTMLImageElement */
     this.element;
-    const sizesWidth = this.instance.applyFilters('srcsetSizesWidth', this.displayedImageWidth, this);
+    const sizesWidth = this.instance.applyFilters("srcsetSizesWidth", this.displayedImageWidth, this);
 
     if (!image.dataset.largestUsedSize || sizesWidth > parseInt(image.dataset.largestUsedSize, 10)) {
-      image.sizes = sizesWidth + 'px';
+      image.sizes = sizesWidth + "px";
       image.dataset.largestUsedSize = String(sizesWidth);
     }
   }
@@ -5147,7 +5147,7 @@ class Content {
 
 
   usePlaceholder() {
-    return this.instance.applyFilters('useContentPlaceholder', this.isImageContent(), this);
+    return this.instance.applyFilters("useContentPlaceholder", this.isImageContent(), this);
   }
   /**
    * Preload content with lazy-loading param
@@ -5155,7 +5155,7 @@ class Content {
 
 
   lazyLoad() {
-    if (this.instance.dispatch('contentLazyLoad', {
+    if (this.instance.dispatch("contentLazyLoad", {
       content: this
     }).defaultPrevented) {
       return;
@@ -5169,7 +5169,7 @@ class Content {
 
 
   keepPlaceholder() {
-    return this.instance.applyFilters('isKeepingPlaceholder', this.isLoading(), this);
+    return this.instance.applyFilters("isKeepingPlaceholder", this.isLoading(), this);
   }
   /**
    * Destroy the content
@@ -5180,7 +5180,7 @@ class Content {
     this.hasSlide = false;
     this.slide = undefined;
 
-    if (this.instance.dispatch('contentDestroy', {
+    if (this.instance.dispatch("contentDestroy", {
       content: this
     }).defaultPrevented) {
       return;
@@ -5208,14 +5208,14 @@ class Content {
     if (this.slide) {
       var _this$instance$option, _this$instance$option2;
 
-      let errorMsgEl = createElement('pswp__error-msg', 'div');
-      errorMsgEl.innerText = (_this$instance$option = (_this$instance$option2 = this.instance.options) === null || _this$instance$option2 === void 0 ? void 0 : _this$instance$option2.errorMsg) !== null && _this$instance$option !== void 0 ? _this$instance$option : '';
+      let errorMsgEl = createElement("pswp__error-msg", "div");
+      errorMsgEl.innerText = (_this$instance$option = (_this$instance$option2 = this.instance.options) === null || _this$instance$option2 === void 0 ? void 0 : _this$instance$option2.errorMsg) !== null && _this$instance$option !== void 0 ? _this$instance$option : "";
       errorMsgEl =
       /** @type {HTMLDivElement} */
-      this.instance.applyFilters('contentErrorElement', errorMsgEl, this);
-      this.element = createElement('pswp__content pswp__error-msg-container', 'div');
+      this.instance.applyFilters("contentErrorElement", errorMsgEl, this);
+      this.element = createElement("pswp__content pswp__error-msg-container", "div");
       this.element.appendChild(errorMsgEl);
-      this.slide.container.innerText = '';
+      this.slide.container.innerText = "";
       this.slide.container.appendChild(this.element);
       this.slide.updateContentSize(true);
       this.removePlaceholder();
@@ -5238,13 +5238,13 @@ class Content {
       return;
     }
 
-    if (this.instance.dispatch('contentAppend', {
+    if (this.instance.dispatch("contentAppend", {
       content: this
     }).defaultPrevented) {
       return;
     }
 
-    const supportsDecode = ('decode' in this.element);
+    const supportsDecode = ("decode" in this.element);
 
     if (this.isImageContent()) {
       // Use decode() on nearby slides
@@ -5284,7 +5284,7 @@ class Content {
 
 
   activate() {
-    if (this.instance.dispatch('contentActivate', {
+    if (this.instance.dispatch("contentActivate", {
       content: this
     }).defaultPrevented || !this.slide) {
       return;
@@ -5299,7 +5299,7 @@ class Content {
     }
 
     if (this.slide.holderElement) {
-      this.slide.holderElement.setAttribute('aria-hidden', 'false');
+      this.slide.holderElement.setAttribute("aria-hidden", "false");
     }
   }
   /**
@@ -5308,12 +5308,12 @@ class Content {
 
 
   deactivate() {
-    this.instance.dispatch('contentDeactivate', {
+    this.instance.dispatch("contentDeactivate", {
       content: this
     });
 
     if (this.slide && this.slide.holderElement) {
-      this.slide.holderElement.setAttribute('aria-hidden', 'true');
+      this.slide.holderElement.setAttribute("aria-hidden", "true");
     }
   }
   /**
@@ -5324,7 +5324,7 @@ class Content {
   remove() {
     this.isAttached = false;
 
-    if (this.instance.dispatch('contentRemove', {
+    if (this.instance.dispatch("contentRemove", {
       content: this
     }).defaultPrevented) {
       return;
@@ -5348,7 +5348,7 @@ class Content {
       return;
     }
 
-    if (this.instance.dispatch('contentAppendImage', {
+    if (this.instance.dispatch("contentAppendImage", {
       content: this
     }).defaultPrevented) {
       return;
@@ -5817,7 +5817,7 @@ class Opener {
     this._animateBgOpacity = false;
     /**
      * @private
-     * @type { HTMLDivElement | HTMLImageElement | null | undefined }
+     * @type { HTMLVideoElement | HTMLImageElement | null | undefined }
      */
 
     this._placeholder = undefined;
@@ -5847,7 +5847,7 @@ class Opener {
     this._thumbBounds = undefined;
     this._prepareOpen = this._prepareOpen.bind(this); // Override initial zoom and pan position
 
-    pswp.on('firstZoomPan', this._prepareOpen);
+    pswp.on("firstZoomPan", this._prepareOpen);
   }
 
   open() {
@@ -5884,7 +5884,7 @@ class Opener {
 
 
   _prepareOpen() {
-    this.pswp.off('firstZoomPan', this._prepareOpen);
+    this.pswp.off("firstZoomPan", this._prepareOpen);
 
     if (!this.isOpening) {
       const slide = this.pswp.currSlide;
@@ -5911,10 +5911,10 @@ class Opener {
       options
     } = pswp;
 
-    if (options.showHideAnimationType === 'fade') {
+    if (options.showHideAnimationType === "fade") {
       options.showHideOpacity = true;
       this._thumbBounds = undefined;
-    } else if (options.showHideAnimationType === 'none') {
+    } else if (options.showHideAnimationType === "none") {
       options.showHideOpacity = false;
       this._duration = 0;
       this._thumbBounds = undefined;
@@ -5973,8 +5973,8 @@ class Opener {
       this._cropContainer2 = (_this$pswp$currSlide = this.pswp.currSlide) === null || _this$pswp$currSlide === void 0 ? void 0 : _this$pswp$currSlide.holderElement;
 
       if (pswp.container) {
-        pswp.container.style.overflow = 'hidden';
-        pswp.container.style.width = pswp.viewportSize.x + 'px';
+        pswp.container.style.overflow = "hidden";
+        pswp.container.style.width = pswp.viewportSize.x + "px";
       }
     } else {
       this._croppedZoom = false;
@@ -5994,7 +5994,7 @@ class Opener {
         }
 
         if (pswp.element) {
-          pswp.element.style.opacity = '1';
+          pswp.element.style.opacity = "1";
         }
       }
 
@@ -6003,7 +6003,7 @@ class Opener {
 
         if (this._placeholder) {
           // tell browser that we plan to animate the placeholder
-          this._placeholder.style.willChange = 'transform'; // hide placeholder to allow hiding of
+          this._placeholder.style.willChange = "transform"; // hide placeholder to allow hiding of
           // elements that overlap it (such as icons over the thumbnail)
 
           this._placeholder.style.opacity = String(MIN_OPACITY);
@@ -6013,11 +6013,11 @@ class Opener {
       // hide nearby slides to make sure that
       // they are not painted during the transition
       if (pswp.mainScroll.itemHolders[0]) {
-        pswp.mainScroll.itemHolders[0].el.style.display = 'none';
+        pswp.mainScroll.itemHolders[0].el.style.display = "none";
       }
 
       if (pswp.mainScroll.itemHolders[2]) {
-        pswp.mainScroll.itemHolders[2].el.style.display = 'none';
+        pswp.mainScroll.itemHolders[2].el.style.display = "none";
       }
 
       if (this._croppedZoom) {
@@ -6033,7 +6033,7 @@ class Opener {
 
 
   _start() {
-    if (this.isOpening && this._useAnimation && this._placeholder && this._placeholder.tagName === 'IMG') {
+    if (this.isOpening && this._useAnimation && this._placeholder && this._placeholder.tagName === "IMG") {
       // To ensure smooth animation
       // we wait till the current slide image placeholder is decoded,
       // but no longer than 250ms,
@@ -6071,18 +6071,18 @@ class Opener {
   _initiate() {
     var _this$pswp$element, _this$pswp$element2;
 
-    (_this$pswp$element = this.pswp.element) === null || _this$pswp$element === void 0 || _this$pswp$element.style.setProperty('--pswp-transition-duration', this._duration + 'ms');
-    this.pswp.dispatch(this.isOpening ? 'openingAnimationStart' : 'closingAnimationStart'); // legacy event
+    (_this$pswp$element = this.pswp.element) === null || _this$pswp$element === void 0 || _this$pswp$element.style.setProperty("--pswp-transition-duration", this._duration + "ms");
+    this.pswp.dispatch(this.isOpening ? "openingAnimationStart" : "closingAnimationStart"); // legacy event
 
     this.pswp.dispatch(
     /** @type {'initialZoomIn' | 'initialZoomOut'} */
-    'initialZoom' + (this.isOpening ? 'In' : 'Out'));
-    (_this$pswp$element2 = this.pswp.element) === null || _this$pswp$element2 === void 0 || _this$pswp$element2.classList.toggle('pswp--ui-visible', this.isOpening);
+    "initialZoom" + (this.isOpening ? "In" : "Out"));
+    (_this$pswp$element2 = this.pswp.element) === null || _this$pswp$element2 === void 0 || _this$pswp$element2.classList.toggle("pswp--ui-visible", this.isOpening);
 
     if (this.isOpening) {
       if (this._placeholder) {
         // unhide the placeholder
-        this._placeholder.style.opacity = '1';
+        this._placeholder.style.opacity = "1";
       }
 
       this._animateToOpenState();
@@ -6105,11 +6105,11 @@ class Opener {
     this.isClosed = this.isClosing;
     this.isOpening = false;
     this.isClosing = false;
-    pswp.dispatch(this.isOpen ? 'openingAnimationEnd' : 'closingAnimationEnd'); // legacy event
+    pswp.dispatch(this.isOpen ? "openingAnimationEnd" : "closingAnimationEnd"); // legacy event
 
     pswp.dispatch(
     /** @type {'initialZoomInEnd' | 'initialZoomOutEnd'} */
-    'initialZoom' + (this.isOpen ? 'InEnd' : 'OutEnd'));
+    "initialZoom" + (this.isOpen ? "InEnd" : "OutEnd"));
 
     if (this.isClosed) {
       pswp.destroy();
@@ -6117,8 +6117,8 @@ class Opener {
       var _pswp$currSlide;
 
       if (this._animateZoom && pswp.container) {
-        pswp.container.style.overflow = 'visible';
-        pswp.container.style.width = '100%';
+        pswp.container.style.overflow = "visible";
+        pswp.container.style.width = "100%";
       }
 
       (_pswp$currSlide = pswp.currSlide) === null || _pswp$currSlide === void 0 || _pswp$currSlide.applyCurrentZoomPan();
@@ -6134,24 +6134,24 @@ class Opener {
 
     if (this._animateZoom) {
       if (this._croppedZoom && this._cropContainer1 && this._cropContainer2) {
-        this._animateTo(this._cropContainer1, 'transform', 'translate3d(0,0,0)');
+        this._animateTo(this._cropContainer1, "transform", "translate3d(0,0,0)");
 
-        this._animateTo(this._cropContainer2, 'transform', 'none');
+        this._animateTo(this._cropContainer2, "transform", "none");
       }
 
       if (pswp.currSlide) {
         pswp.currSlide.zoomAndPanToInitial();
 
-        this._animateTo(pswp.currSlide.container, 'transform', pswp.currSlide.getCurrentTransform());
+        this._animateTo(pswp.currSlide.container, "transform", pswp.currSlide.getCurrentTransform());
       }
     }
 
     if (this._animateBgOpacity && pswp.bg) {
-      this._animateTo(pswp.bg, 'opacity', String(pswp.options.bgOpacity));
+      this._animateTo(pswp.bg, "opacity", String(pswp.options.bgOpacity));
     }
 
     if (this._animateRootOpacity && pswp.element) {
-      this._animateTo(pswp.element, 'opacity', '1');
+      this._animateTo(pswp.element, "opacity", "1");
     }
   }
   /** @private */
@@ -6168,11 +6168,11 @@ class Opener {
 
 
     if (this._animateBgOpacity && pswp.bgOpacity > 0.01 && pswp.bg) {
-      this._animateTo(pswp.bg, 'opacity', '0');
+      this._animateTo(pswp.bg, "opacity", "0");
     }
 
     if (this._animateRootOpacity && pswp.element) {
-      this._animateTo(pswp.element, 'opacity', '0');
+      this._animateTo(pswp.element, "opacity", "0");
     }
   }
   /**
@@ -6201,9 +6201,9 @@ class Opener {
       const containerTwoPanY = viewportSize.y - innerRect.h;
 
       if (animate) {
-        this._animateTo(this._cropContainer1, 'transform', toTransformString(containerOnePanX, containerOnePanY));
+        this._animateTo(this._cropContainer1, "transform", toTransformString(containerOnePanX, containerOnePanY));
 
-        this._animateTo(this._cropContainer2, 'transform', toTransformString(containerTwoPanX, containerTwoPanY));
+        this._animateTo(this._cropContainer2, "transform", toTransformString(containerTwoPanX, containerTwoPanY));
       } else {
         setTransform(this._cropContainer1, containerOnePanX, containerOnePanY);
         setTransform(this._cropContainer2, containerTwoPanX, containerTwoPanY);
@@ -6215,7 +6215,7 @@ class Opener {
       currSlide.currZoomLevel = this._thumbBounds.w / currSlide.width;
 
       if (animate) {
-        this._animateTo(currSlide.container, 'transform', currSlide.getCurrentTransform());
+        this._animateTo(currSlide.container, "transform", currSlide.getCurrentTransform());
       } else {
         currSlide.applyCurrentZoomPan();
       }
@@ -6493,17 +6493,17 @@ const defaultOptions = {
   returnFocus: true,
   maxWidthToAnimate: 4000,
   clickToCloseNonZoomable: true,
-  imageClickAction: 'zoom-or-close',
-  bgClickAction: 'close',
-  tapAction: 'toggle-controls',
-  doubleTapAction: 'zoom',
-  indexIndicatorSep: ' / ',
+  imageClickAction: "zoom-or-close",
+  bgClickAction: "close",
+  tapAction: "toggle-controls",
+  doubleTapAction: "zoom",
+  indexIndicatorSep: " / ",
   preloaderDelay: 2000,
   bgOpacity: 0.8,
   index: 0,
-  errorMsg: 'The image cannot be loaded',
+  errorMsg: "The image cannot be loaded",
   preload: [1, 2],
-  easing: 'cubic-bezier(.4,0,.22,1)'
+  easing: "cubic-bezier(.4,0,.22,1)"
 };
 /**
  * PhotoSwipe Core
@@ -6599,30 +6599,30 @@ class PhotoSwipe extends PhotoSwipeBase {
     }
 
     this.isOpen = true;
-    this.dispatch('init'); // legacy
+    this.dispatch("init"); // legacy
 
-    this.dispatch('beforeOpen');
+    this.dispatch("beforeOpen");
 
     this._createMainStructure(); // add classes to the root element of PhotoSwipe
 
 
-    let rootClasses = 'pswp--open';
+    let rootClasses = "pswp--open";
 
     if (this.gestures.supportsTouch) {
-      rootClasses += ' pswp--touch';
+      rootClasses += " pswp--touch";
     }
 
     if (this.options.mainClass) {
-      rootClasses += ' ' + this.options.mainClass;
+      rootClasses += " " + this.options.mainClass;
     }
 
     if (this.element) {
-      this.element.className += ' ' + rootClasses;
+      this.element.className += " " + rootClasses;
     }
 
     this.currIndex = this.options.index || 0;
     this.potentialIndex = this.currIndex;
-    this.dispatch('firstUpdate'); // starting index can be modified here
+    this.dispatch("firstUpdate"); // starting index can be modified here
     // initialize scroll wheel handler to block the scroll
 
     this.scrollWheel = new ScrollWheel(this); // sanitize index
@@ -6640,43 +6640,43 @@ class PhotoSwipe extends PhotoSwipeBase {
     this.updateSize();
     this.offset.y = window.pageYOffset;
     this._initialItemData = this.getItemData(this.currIndex);
-    this.dispatch('gettingData', {
+    this.dispatch("gettingData", {
       index: this.currIndex,
       data: this._initialItemData,
       slide: undefined
     }); // *Layout* - calculate size and position of elements here
 
     this._initialThumbBounds = this.getThumbBounds();
-    this.dispatch('initialLayout');
-    this.on('openingAnimationEnd', () => {
+    this.dispatch("initialLayout");
+    this.on("openingAnimationEnd", () => {
       const {
         itemHolders
       } = this.mainScroll; // Add content to the previous and next slide
 
       if (itemHolders[0]) {
-        itemHolders[0].el.style.display = 'block';
+        itemHolders[0].el.style.display = "block";
         this.setContent(itemHolders[0], this.currIndex - 1);
       }
 
       if (itemHolders[2]) {
-        itemHolders[2].el.style.display = 'block';
+        itemHolders[2].el.style.display = "block";
         this.setContent(itemHolders[2], this.currIndex + 1);
       }
 
       this.appendHeavy();
       this.contentLoader.updateLazy();
-      this.events.add(window, 'resize', this._handlePageResize.bind(this));
-      this.events.add(window, 'scroll', this._updatePageScrollOffset.bind(this));
-      this.dispatch('bindEvents');
+      this.events.add(window, "resize", this._handlePageResize.bind(this));
+      this.events.add(window, "scroll", this._updatePageScrollOffset.bind(this));
+      this.dispatch("bindEvents");
     }); // set content for center slide (first time)
 
     if (this.mainScroll.itemHolders[1]) {
       this.setContent(this.mainScroll.itemHolders[1], this.currIndex);
     }
 
-    this.dispatch('change');
+    this.dispatch("change");
     this.opener.open();
-    this.dispatch('afterInit');
+    this.dispatch("afterInit");
     return true;
   }
   /**
@@ -6770,7 +6770,7 @@ class PhotoSwipe extends PhotoSwipeBase {
     }
 
     this.isDestroying = true;
-    this.dispatch('close');
+    this.dispatch("close");
     this.events.removeAll();
     this.opener.close();
   }
@@ -6787,12 +6787,12 @@ class PhotoSwipe extends PhotoSwipeBase {
     var _this$element;
 
     if (!this.isDestroying) {
-      this.options.showHideAnimationType = 'none';
+      this.options.showHideAnimationType = "none";
       this.close();
       return;
     }
 
-    this.dispatch('destroy');
+    this.dispatch("destroy");
     this._listeners = {};
 
     if (this.scrollWrap) {
@@ -6839,7 +6839,7 @@ class PhotoSwipe extends PhotoSwipeBase {
         }
       }
     });
-    this.dispatch('change');
+    this.dispatch("change");
   }
   /**
    * Set slide content
@@ -6919,21 +6919,21 @@ class PhotoSwipe extends PhotoSwipeBase {
 
 
     equalizePoints(this._prevViewportSize, newViewportSize);
-    this.dispatch('beforeResize');
+    this.dispatch("beforeResize");
     equalizePoints(this.viewportSize, this._prevViewportSize);
 
     this._updatePageScrollOffset();
 
-    this.dispatch('viewportSize'); // Resize slides only after opener animation is finished
+    this.dispatch("viewportSize"); // Resize slides only after opener animation is finished
     // and don't re-calculate size on inital size update
 
     this.mainScroll.resize(this.opener.isOpen);
 
-    if (!this.hasMouse && window.matchMedia('(any-hover: hover)').matches) {
+    if (!this.hasMouse && window.matchMedia("(any-hover: hover)").matches) {
       this.mouseDetected();
     }
 
-    this.dispatch('resize');
+    this.dispatch("resize");
   }
   /**
    * @param {number} opacity
@@ -6957,7 +6957,7 @@ class PhotoSwipe extends PhotoSwipeBase {
       var _this$element2;
 
       this.hasMouse = true;
-      (_this$element2 = this.element) === null || _this$element2 === void 0 || _this$element2.classList.add('pswp--has_mouse');
+      (_this$element2 = this.element) === null || _this$element2 === void 0 || _this$element2.classList.add("pswp--has_mouse");
     }
   }
   /**
@@ -7001,7 +7001,7 @@ class PhotoSwipe extends PhotoSwipeBase {
   setScrollOffset(x, y) {
     this.offset.x = x;
     this.offset.y = y;
-    this.dispatch('updateScrollOffset');
+    this.dispatch("updateScrollOffset");
   }
   /**
    * Create main HTML structure of PhotoSwipe,
@@ -7013,20 +7013,20 @@ class PhotoSwipe extends PhotoSwipeBase {
 
   _createMainStructure() {
     // root DOM element of PhotoSwipe (.pswp)
-    this.element = createElement('pswp', 'div');
-    this.element.setAttribute('tabindex', '-1');
-    this.element.setAttribute('role', 'dialog'); // template is legacy prop
+    this.element = createElement("pswp", "div");
+    this.element.setAttribute("tabindex", "-1");
+    this.element.setAttribute("role", "dialog"); // template is legacy prop
 
     this.template = this.element; // Background is added as a separate element,
     // as animating opacity is faster than animating rgba()
 
-    this.bg = createElement('pswp__bg', 'div', this.element);
-    this.scrollWrap = createElement('pswp__scroll-wrap', 'section', this.element);
-    this.container = createElement('pswp__container', 'div', this.scrollWrap); // aria pattern: carousel
+    this.bg = createElement("pswp__bg", "div", this.element);
+    this.scrollWrap = createElement("pswp__scroll-wrap", "section", this.element);
+    this.container = createElement("pswp__container", "div", this.scrollWrap); // aria pattern: carousel
 
-    this.scrollWrap.setAttribute('aria-roledescription', 'carousel');
-    this.container.setAttribute('aria-live', 'off');
-    this.container.setAttribute('id', 'pswp__items');
+    this.scrollWrap.setAttribute("aria-roledescription", "carousel");
+    this.container.setAttribute("aria-live", "off");
+    this.container.setAttribute("id", "pswp__items");
     this.mainScroll.appendHolders();
     this.ui = new UI(this);
     this.ui.init(); // append to DOM
@@ -7063,8 +7063,8 @@ class PhotoSwipe extends PhotoSwipeBase {
 
 
   _prepareOptions(options) {
-    if (window.matchMedia('(prefers-reduced-motion), (update: slow)').matches) {
-      options.showHideAnimationType = 'none';
+    if (window.matchMedia("(prefers-reduced-motion), (update: slow)").matches) {
+      options.showHideAnimationType = "none";
       options.zoomAnimationDuration = 0;
     }
     /** @type {PreparedPhotoSwipeOptions} */

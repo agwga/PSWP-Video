@@ -1,7 +1,4 @@
-import {
-  setTransform,
-  createElement,
-} from './util/util.js';
+import { setTransform, createElement } from "./util/util.js";
 
 /** @typedef {import('./photoswipe.js').default} PhotoSwipe */
 /** @typedef {import('./slide/slide.js').default} Slide */
@@ -9,7 +6,6 @@ import {
 /** @typedef {{ el: HTMLDivElement; slide?: Slide }} ItemHolder */
 
 const MAIN_SCROLL_END_FRICTION = 0.35;
-
 
 // const MIN_SWIPE_TRANSITION_DURATION = 250;
 // const MAX_SWIPE_TRABSITION_DURATION = 500;
@@ -54,7 +50,7 @@ class MainScroll {
     // Mobile browsers might trigger a resize event during a gesture.
     // (due to toolbar appearing or hiding).
     // Avoid re-adjusting main scroll position if width wasn't changed
-    const slideWidthChanged = (newSlideWidth !== this.slideWidth);
+    const slideWidthChanged = newSlideWidth !== this.slideWidth;
 
     if (slideWidthChanged) {
       this.slideWidth = newSlideWidth;
@@ -63,8 +59,10 @@ class MainScroll {
 
     this.itemHolders.forEach((itemHolder, index) => {
       if (slideWidthChanged) {
-        setTransform(itemHolder.el, (index + this._containerShiftIndex)
-                                    * this.slideWidth);
+        setTransform(
+          itemHolder.el,
+          (index + this._containerShiftIndex) * this.slideWidth
+        );
       }
 
       if (resizeSlides && itemHolder.slide) {
@@ -99,13 +97,13 @@ class MainScroll {
     // append our three slide holders -
     // previous, current, and next
     for (let i = 0; i < 3; i++) {
-      const el = createElement('pswp__item', 'div', this.pswp.container);
-      el.setAttribute('role', 'group');
-      el.setAttribute('aria-roledescription', 'slide');
-      el.setAttribute('aria-hidden', 'true');
+      const el = createElement("pswp__item", "div", this.pswp.container);
+      el.setAttribute("role", "group");
+      el.setAttribute("aria-roledescription", "slide");
+      el.setAttribute("aria-hidden", "true");
 
       // hide nearby item holders until initial zoom animation finishes (to avoid extra Paints)
-      el.style.display = (i === 1) ? 'block' : 'none';
+      el.style.display = i === 1 ? "block" : "none";
 
       this.itemHolders.push({
         el,
@@ -184,7 +182,7 @@ class MainScroll {
         onComplete: () => {
           this.updateCurrItem();
           pswp.appendHeavy();
-        }
+        },
       });
 
       let currDiff = pswp.potentialIndex - pswp.currIndex;
@@ -232,7 +230,8 @@ class MainScroll {
    */
   updateCurrItem() {
     const { pswp } = this;
-    const positionDifference = this._prevPositionIndex - this._currPositionIndex;
+    const positionDifference =
+      this._prevPositionIndex - this._currPositionIndex;
 
     if (!positionDifference) {
       return;
@@ -247,7 +246,8 @@ class MainScroll {
     let tempHolder;
 
     if (diffAbs >= 3) {
-      this._containerShiftIndex += positionDifference + (positionDifference > 0 ? -3 : 3);
+      this._containerShiftIndex +=
+        positionDifference + (positionDifference > 0 ? -3 : 3);
       diffAbs = 3;
 
       // If slides are changed by 3 screens or more - clean up previous slides
@@ -265,9 +265,12 @@ class MainScroll {
 
           this._containerShiftIndex++;
 
-          setTransform(tempHolder.el, (this._containerShiftIndex + 2) * this.slideWidth);
+          setTransform(
+            tempHolder.el,
+            (this._containerShiftIndex + 2) * this.slideWidth
+          );
 
-          pswp.setContent(tempHolder, (pswp.currIndex - diffAbs) + i + 2);
+          pswp.setContent(tempHolder, pswp.currIndex - diffAbs + i + 2);
         }
       } else {
         tempHolder = this.itemHolders.pop();
@@ -276,9 +279,12 @@ class MainScroll {
 
           this._containerShiftIndex--;
 
-          setTransform(tempHolder.el, this._containerShiftIndex * this.slideWidth);
+          setTransform(
+            tempHolder.el,
+            this._containerShiftIndex * this.slideWidth
+          );
 
-          pswp.setContent(tempHolder, (pswp.currIndex + diffAbs) - i - 2);
+          pswp.setContent(tempHolder, pswp.currIndex + diffAbs - i - 2);
         }
       }
     }
@@ -311,7 +317,7 @@ class MainScroll {
       pswp.currSlide.applyCurrentZoomPan();
     }
 
-    pswp.dispatch('change');
+    pswp.dispatch("change");
   }
 
   /**
@@ -323,13 +329,16 @@ class MainScroll {
   moveTo(x, dragging) {
     if (!this.pswp.canLoop() && dragging) {
       // Apply friction
-      let newSlideIndexOffset = ((this.slideWidth * this._currPositionIndex) - x) / this.slideWidth;
+      let newSlideIndexOffset =
+        (this.slideWidth * this._currPositionIndex - x) / this.slideWidth;
       newSlideIndexOffset += this.pswp.currIndex;
       const delta = Math.round(x - this.x);
 
-      if ((newSlideIndexOffset < 0 && delta > 0)
-          || (newSlideIndexOffset >= this.pswp.getNumItems() - 1 && delta < 0)) {
-        x = this.x + (delta * MAIN_SCROLL_END_FRICTION);
+      if (
+        (newSlideIndexOffset < 0 && delta > 0) ||
+        (newSlideIndexOffset >= this.pswp.getNumItems() - 1 && delta < 0)
+      ) {
+        x = this.x + delta * MAIN_SCROLL_END_FRICTION;
       }
     }
 
@@ -339,7 +348,7 @@ class MainScroll {
       setTransform(this.pswp.container, x);
     }
 
-    this.pswp.dispatch('moveMainScroll', { x, dragging: dragging ?? false });
+    this.pswp.dispatch("moveMainScroll", { x, dragging: dragging ?? false });
   }
 }
 
