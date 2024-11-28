@@ -26,21 +26,29 @@ class Placeholder {
     );
 
     if (contentSrc) {
-      if (contentSrc) {
-        const videoEl = /** @type {HTMLVideoElement} */ (this.element);
-        videoEl.setAttribute("muted", "muted");
-        videoEl.setAttribute("autoplay", "");
-        videoEl.setAttribute("loop", "");
-        videoEl.setAttribute("playsInline", "");
-        videoEl.src = contentSrc;
-      } else if (contentSrc) {
-        const imgEl = /** @type {HTMLImageElement} */ (this.element);
-        imgEl.decoding = "async";
-        imgEl.alt = "";
-        imgEl.src = contentSrc;
-        imgEl.setAttribute("role", "presentation");
-      }
+      const imgEl = /** @type {HTMLImageElement} */ (this.element);
+      imgEl.decoding = "async";
+      imgEl.alt = "";
+      imgEl.src = contentSrc;
+      imgEl.setAttribute("role", "presentation");
     }
+
+    // if (contentSrc) {
+    //   if (contentType == "video") {
+    //     const videoEl = /** @type {HTMLVideoElement} */ (this.element);
+    //     videoEl.setAttribute("muted", "muted");
+    //     videoEl.setAttribute("autoplay", "");
+    //     videoEl.setAttribute("loop", "");
+    //     videoEl.setAttribute("playsInline", "");
+    //     videoEl.src = contentSrc;
+    //   } else if (contentType == undefined) {
+    //     const imgEl = /** @type {HTMLImageElement} */ (this.element);
+    //     imgEl.decoding = "async";
+    //     imgEl.alt = "";
+    //     imgEl.src = contentSrc;
+    //     imgEl.setAttribute("role", "presentation");
+    //   }
+    // }
 
     this.element.setAttribute("aria-hidden", "true");
   }
