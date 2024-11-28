@@ -28,6 +28,7 @@ class Placeholder {
     switch (contentType) {
       case "video":
         if (contentSrc) {
+          console.log("video ", contentSrc);
           const videoEl = /** @type {HTMLVideoElement} */ (this.element);
           videoEl.src = contentSrc;
           videoEl.setAttribute("muted", "muted");
@@ -38,6 +39,7 @@ class Placeholder {
       case undefined:
       case "image":
         if (contentSrc) {
+          console.log("image ", contentSrc);
           const imgEl = /** @type {HTMLImageElement} */ (this.element);
           imgEl.decoding = "async";
           imgEl.alt = "";
