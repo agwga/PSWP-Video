@@ -4782,6 +4782,7 @@ class Placeholder {
     switch (contentType) {
       case "video":
         if (contentSrc) {
+          console.log("video ", contentSrc);
           const videoEl =
           /** @type {HTMLVideoElement} */
           this.element;
@@ -4795,6 +4796,7 @@ class Placeholder {
       case undefined:
       case "image":
         if (contentSrc) {
+          console.log("image ", contentSrc);
           const imgEl =
           /** @type {HTMLImageElement} */
           this.element;
