@@ -16,11 +16,11 @@ class Placeholder {
     /** @type {HTMLImageElement | HTMLVideoElement | null} */
     this.element = createElement(
       "pswp__img pswp__img--placeholder",
-      contentType == undefined ? "img" : "video",
+      contentType == undefined ? "video" : "img",
       container
     );
 
-    if (contentType == "video") {
+    if (contentType == undefined) {
       if (imageSrc) {
         const videoEl = /** @type {HTMLVideoElement} */ (this.element);
         videoEl.src = imageSrc;
