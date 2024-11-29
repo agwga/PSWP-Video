@@ -12,10 +12,10 @@ class Placeholder {
   constructor(imageSrc, container) {
     // Create placeholder
     // (stretched thumbnail or simple div behind the main image)
-    /** @type {HTMLImageElement | HTMLDivElement | null} */
+    /** @type {HTMLImageElement | HTMLVideoElement | null} */
     this.element = createElement(
       "pswp__img pswp__img--placeholder",
-      imageSrc ? "img" : "div",
+      imageSrc ? "img" : "video",
       container
     );
 
