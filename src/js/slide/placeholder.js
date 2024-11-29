@@ -16,24 +16,24 @@ class Placeholder {
     /** @type {HTMLImageElement | HTMLVideoElement | null} */
     this.element = createElement(
       "pswp__img pswp__img--placeholder",
-      contentType == undefined ? "img" : "video",
+      "video",
       container
     );
 
-    if (contentType == undefined) {
-      if (imageSrc) {
-        const imgEl = /** @type {HTMLImageElement} */ (this.element);
-        imgEl.decoding = "async";
-        imgEl.alt = "";
-        imgEl.src = imageSrc;
-        imgEl.setAttribute("role", "presentation");
-      }
-    } else {
-      if (imageSrc) {
-        const videoEl = /** @type {HTMLVideoElement} */ (this.element);
-        videoEl.src = imageSrc;
-      }
-    }
+    // if (contentType == undefined) {
+    //   if (imageSrc) {
+    //     const imgEl = /** @type {HTMLImageElement} */ (this.element);
+    //     imgEl.decoding = "async";
+    //     imgEl.alt = "";
+    //     imgEl.src = imageSrc;
+    //     imgEl.setAttribute("role", "presentation");
+    //   }
+    // } else {
+    //   if (imageSrc) {
+    //     const videoEl = /** @type {HTMLVideoElement} */ (this.element);
+    //     videoEl.src = imageSrc;
+    //   }
+    // }
 
     this.element.setAttribute("aria-hidden", "true");
   }

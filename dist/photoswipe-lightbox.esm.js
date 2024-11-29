@@ -513,26 +513,20 @@ class Placeholder {
     // (stretched thumbnail or simple div behind the main image)
 
     /** @type {HTMLImageElement | HTMLVideoElement | null} */
-    this.element = createElement("pswp__img pswp__img--placeholder", contentType == undefined ? "img" : "video", container);
-
-    if (contentType == undefined) {
-      if (imageSrc) {
-        const imgEl =
-        /** @type {HTMLImageElement} */
-        this.element;
-        imgEl.decoding = "async";
-        imgEl.alt = "";
-        imgEl.src = imageSrc;
-        imgEl.setAttribute("role", "presentation");
-      }
-    } else {
-      if (imageSrc) {
-        const videoEl =
-        /** @type {HTMLVideoElement} */
-        this.element;
-        videoEl.src = imageSrc;
-      }
-    }
+    this.element = createElement("pswp__img pswp__img--placeholder", "video", container); // if (contentType == undefined) {
+    //   if (imageSrc) {
+    //     const imgEl = /** @type {HTMLImageElement} */ (this.element);
+    //     imgEl.decoding = "async";
+    //     imgEl.alt = "";
+    //     imgEl.src = imageSrc;
+    //     imgEl.setAttribute("role", "presentation");
+    //   }
+    // } else {
+    //   if (imageSrc) {
+    //     const videoEl = /** @type {HTMLVideoElement} */ (this.element);
+    //     videoEl.src = imageSrc;
+    //   }
+    // }
 
     this.element.setAttribute("aria-hidden", "true");
   }
@@ -647,7 +641,7 @@ class Content {
         const placeholderSrc = this.instance.applyFilters("placeholderSrc", // use  image-based placeholder only for the first slide,
         // as rendering (even small stretched thumbnail) is an expensive operation
         this.data.msrc && this.slide.isFirstSlide ? this.data.msrc : false, this);
-        this.placeholder = new Placeholder(placeholderSrc, this.data.type, this.slide.container);
+        this.placeholder = new Placeholder(placeholderSrc, "video", this.slide.container);
       } else {
         const placeholderEl = this.placeholder.element; // Add placeholder to DOM if it was already created
 
