@@ -17,8 +17,8 @@ declare class Content {
     instance: import("../core/base.js").default;
     data: import("./slide.js").SlideData;
     index: number;
-    /** @type {HTMLImageElement | HTMLDivElement | undefined} */
-    element: HTMLImageElement | HTMLDivElement | undefined;
+    /** @type {HTMLImageElement | HTMLVideoElement | undefined} */
+    element: HTMLImageElement | HTMLVideoElement | undefined;
     /** @type {Placeholder | undefined} */
     placeholder: Placeholder | undefined;
     /** @type {Slide | undefined} */
