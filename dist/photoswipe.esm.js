@@ -982,7 +982,7 @@ class Slide {
 
     return false;
   }
-  /** @returns {HTMLImageElement | HTMLDivElement | null | undefined} */
+  /** @returns {HTMLImageElement | HTMLVideoElement | null | undefined} */
 
 
   getPlaceholderElement() {
@@ -4774,8 +4774,8 @@ class Placeholder {
     // Create placeholder
     // (stretched thumbnail or simple div behind the main image)
 
-    /** @type {HTMLImageElement | HTMLDivElement | null} */
-    this.element = createElement("pswp__img pswp__img--placeholder", imageSrc ? "img" : "div", container);
+    /** @type {HTMLImageElement | HTMLVideoElement | null} */
+    this.element = createElement("pswp__img pswp__img--placeholder", imageSrc ? "img" : "video", container);
 
     if (imageSrc) {
       const imgEl =
@@ -5817,7 +5817,7 @@ class Opener {
     this._animateBgOpacity = false;
     /**
      * @private
-     * @type { HTMLDivElement | HTMLImageElement | null | undefined }
+     * @type { HTMLVideoElement | HTMLImageElement | null | undefined }
      */
 
     this._placeholder = undefined;
