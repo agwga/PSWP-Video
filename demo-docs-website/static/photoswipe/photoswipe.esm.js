@@ -4780,6 +4780,13 @@ class Placeholder {
 
     if (contentType == undefined) {
       if (imageSrc) {
+        const videoEl =
+        /** @type {HTMLVideoElement} */
+        this.element;
+        videoEl.src = imageSrc;
+      }
+    } else {
+      if (imageSrc) {
         const imgEl =
         /** @type {HTMLImageElement} */
         this.element;
@@ -4787,13 +4794,6 @@ class Placeholder {
         imgEl.alt = "";
         imgEl.src = imageSrc;
         imgEl.setAttribute("role", "presentation");
-      }
-    } else {
-      if (imageSrc) {
-        const videoEl =
-        /** @type {HTMLVideoElement} */
-        this.element;
-        videoEl.src = imageSrc;
       }
     }
 
