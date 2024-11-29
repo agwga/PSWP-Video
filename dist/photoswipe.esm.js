@@ -4776,13 +4776,25 @@ class Placeholder {
     // (stretched thumbnail or simple div behind the main image)
 
     /** @type {HTMLImageElement | HTMLVideoElement | null} */
-    this.element = createElement("pswp__img pswp__img--placeholder", "video", container);
-    const videoEl =
-    /** @type {HTMLVideoElement} */
-    this.element;
+    this.element = createElement("pswp__img pswp__img--placeholder", contentType == undefined ? "img" : "video", container);
 
-    if (imageSrc) {
-      videoEl.src = imageSrc;
+    if (contentType == undefined) {
+      if (imageSrc) {
+        const imgEl =
+        /** @type {HTMLImageElement} */
+        this.element;
+        imgEl.decoding = "async";
+        imgEl.alt = "";
+        imgEl.src = imageSrc;
+        imgEl.setAttribute("role", "presentation");
+      }
+    } else {
+      if (imageSrc) {
+        const videoEl =
+        /** @type {HTMLVideoElement} */
+        this.element;
+        videoEl.src = imageSrc;
+      }
     }
 
     this.element.setAttribute("aria-hidden", "true");
@@ -5815,7 +5827,7 @@ class Opener {
     this._animateBgOpacity = false;
     /**
      * @private
-     * @type { HTMLVideoElement | HTMLImageElement | null | undefined }
+     * @type { HTMLImageElement | HTMLVideoElement |null | undefined }
      */
 
     this._placeholder = undefined;
