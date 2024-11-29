@@ -16,23 +16,13 @@ class Placeholder {
     /** @type {HTMLImageElement | HTMLVideoElement | null} */
     this.element = createElement(
       "pswp__img pswp__img--placeholder",
-      contentType == undefined ? "video" : "img",
+      "video",
       container
     );
 
-    if (contentType == undefined) {
-      if (imageSrc) {
-        const videoEl = /** @type {HTMLVideoElement} */ (this.element);
-        videoEl.src = imageSrc;
-      }
-    } else {
-      if (imageSrc) {
-        const imgEl = /** @type {HTMLImageElement} */ (this.element);
-        imgEl.decoding = "async";
-        imgEl.alt = "";
-        imgEl.src = imageSrc;
-        imgEl.setAttribute("role", "presentation");
-      }
+    const videoEl = /** @type {HTMLVideoElement} */ (this.element);
+    if (imageSrc) {
+      videoEl.src = imageSrc;
     }
 
     this.element.setAttribute("aria-hidden", "true");
