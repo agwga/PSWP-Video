@@ -982,7 +982,7 @@ class Slide {
 
     return false;
   }
-  /** @returns {HTMLImageElement | HTMLVideoElement | HTMLDivElement | null | undefined} */
+  /** @returns {HTMLImageElement | HTMLDivElement | null | undefined} */
 
 
   getPlaceholderElement() {
@@ -4774,9 +4774,8 @@ class Placeholder {
     // Create placeholder
     // (stretched thumbnail or simple div behind the main image)
 
-    /** @type {HTMLImageElement | HTMLVideoElement | null} */
-    this.element = createElement("pswp__img pswp__img--placeholder", imageSrc ? "img" : "video", // contentType == "image" ? "img" : contentType == "video" ? "video" : "div",
-    container);
+    /** @type {HTMLImageElement | HTMLDivElement | null} */
+    this.element = createElement("pswp__img pswp__img--placeholder", imageSrc ? "img" : "div", container);
 
     if (imageSrc) {
       const imgEl =
@@ -4786,23 +4785,7 @@ class Placeholder {
       imgEl.alt = "";
       imgEl.src = imageSrc;
       imgEl.setAttribute("role", "presentation");
-    } // if (contentSrc) {
-    //   if (contentType == "video") {
-    //     const videoEl = /** @type {HTMLVideoElement} */ (this.element);
-    //     videoEl.setAttribute("muted", "muted");
-    //     videoEl.setAttribute("autoplay", "");
-    //     videoEl.setAttribute("loop", "");
-    //     videoEl.setAttribute("playsInline", "");
-    //     videoEl.src = contentSrc;
-    //   } else if (contentType == undefined) {
-    //     const imgEl = /** @type {HTMLImageElement} */ (this.element);
-    //     imgEl.decoding = "async";
-    //     imgEl.alt = "";
-    //     imgEl.src = contentSrc;
-    //     imgEl.setAttribute("role", "presentation");
-    //   }
-    // }
-
+    }
 
     this.element.setAttribute("aria-hidden", "true");
   }
@@ -5834,7 +5817,7 @@ class Opener {
     this._animateBgOpacity = false;
     /**
      * @private
-     * @type { HTMLVideoElement | HTMLImageElement | HTMLDivElement | null | undefined }
+     * @type { HTMLDivElement | HTMLImageElement | null | undefined }
      */
 
     this._placeholder = undefined;
