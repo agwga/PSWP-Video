@@ -513,7 +513,7 @@ class Placeholder {
     // (stretched thumbnail or simple div behind the main image)
 
     /** @type {HTMLImageElement | HTMLVideoElement | null} */
-    this.element = createElement("pswp__img pswp__img--placeholder", "video", container); // if (contentType == undefined) {
+    this.element = createElement("pswp__img pswp__img--placeholder", contentType === "video" ? "video" : "img", container); // if (contentType == undefined) {
     //   if (imageSrc) {
     //     const imgEl = /** @type {HTMLImageElement} */ (this.element);
     //     imgEl.decoding = "async";
@@ -522,11 +522,14 @@ class Placeholder {
     //     imgEl.setAttribute("role", "presentation");
     //   }
     // } else {
-    //   if (imageSrc) {
-    //     const videoEl = /** @type {HTMLVideoElement} */ (this.element);
-    //     videoEl.src = imageSrc;
-    //   }
-    // }
+
+    if (imageSrc) {
+      const videoEl =
+      /** @type {HTMLVideoElement} */
+      this.element;
+      videoEl.src = imageSrc;
+    } // }
+
 
     this.element.setAttribute("aria-hidden", "true");
   }

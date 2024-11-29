@@ -16,7 +16,7 @@ class Placeholder {
     /** @type {HTMLImageElement | HTMLVideoElement | null} */
     this.element = createElement(
       "pswp__img pswp__img--placeholder",
-      "video",
+      contentType === "video" ? "video" : "img",
       container
     );
 
@@ -29,10 +29,10 @@ class Placeholder {
     //     imgEl.setAttribute("role", "presentation");
     //   }
     // } else {
-    //   if (imageSrc) {
-    //     const videoEl = /** @type {HTMLVideoElement} */ (this.element);
-    //     videoEl.src = imageSrc;
-    //   }
+    if (imageSrc) {
+      const videoEl = /** @type {HTMLVideoElement} */ (this.element);
+      videoEl.src = imageSrc;
+    }
     // }
 
     this.element.setAttribute("aria-hidden", "true");
