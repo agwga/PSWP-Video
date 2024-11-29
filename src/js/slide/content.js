@@ -22,7 +22,7 @@ class Content {
     this.data = itemData;
     this.index = index;
 
-    /** @type {HTMLImageElement | HTMLDivElement | undefined} */
+    /** @type {HTMLImageElement | HTMLVideoElement | undefined} */
     this.element = undefined;
     /** @type {Placeholder | undefined} */
     this.placeholder = undefined;
@@ -112,7 +112,7 @@ class Content {
         this.loadImage(isLazy);
       }
     } else {
-      this.element = createElement("pswp__content", "div");
+      this.element = createElement("pswp__content", "video");
       this.element.innerHTML = this.data.html || "";
     }
 
@@ -408,7 +408,7 @@ class Content {
       );
       this.element = createElement(
         "pswp__content pswp__error-msg-container",
-        "div"
+        "video"
       );
       this.element.appendChild(errorMsgEl);
       this.slide.container.innerText = "";
