@@ -4768,24 +4768,23 @@ class Eventable {
 class Placeholder {
   /**
    * @param {string | undefined} contentType
-   * @param {string | false} contentSrc
+   * @param {string | false} imageSrc
    * @param {HTMLElement} container
    */
-  constructor(contentType, contentSrc, container) {
+  constructor(contentType, imageSrc, container) {
     // Create placeholder
     // (stretched thumbnail or simple div behind the main image)
 
     /** @type {HTMLImageElement | HTMLVideoElement | HTMLDivElement | null} */
-    this.element = createElement("pswp__img pswp__img--placeholder", // imageSrc ? "img" : "video",
-    contentType == undefined ? "img" : contentType == "video" ? "video" : "div", container);
+    this.element = createElement("pswp__img pswp__img--placeholder", imageSrc ? "img" : "video", container);
 
-    if (contentSrc) {
+    if (imageSrc) {
       const imgEl =
       /** @type {HTMLImageElement} */
       this.element;
       imgEl.decoding = "async";
       imgEl.alt = "";
-      imgEl.src = contentSrc;
+      imgEl.src = imageSrc;
       imgEl.setAttribute("role", "presentation");
     } // if (contentSrc) {
     //   if (contentType == "video") {
