@@ -252,12 +252,7 @@ class Opener {
 
   /** @private */
   _start() {
-    if (
-      this.isOpening &&
-      this._useAnimation &&
-      this._placeholder &&
-      this._placeholder.tagName === "IMG"
-    ) {
+    if (this.isOpening && this._useAnimation && this._placeholder) {
       // To ensure smooth animation
       // we wait till the current slide image placeholder is decoded,
       // but no longer than 250ms,
