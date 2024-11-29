@@ -20,7 +20,7 @@ class Placeholder {
       container
     );
 
-    if (contentType == undefined) {
+    if (contentType == "video") {
       if (imageSrc) {
         const videoEl = /** @type {HTMLVideoElement} */ (this.element);
         videoEl.src = imageSrc;
