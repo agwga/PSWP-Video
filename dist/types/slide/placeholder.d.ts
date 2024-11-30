@@ -1,11 +1,11 @@
 export default Placeholder;
 declare class Placeholder {
     /**
-     * @param {string | false} imageSrc
      * @param {string | undefined} contentType
+     * @param {string | false} imageSrc
      * @param {HTMLElement} container
      */
-    constructor(imageSrc: string | false, contentType: string | undefined, container: HTMLElement);
+    constructor(contentType: string | undefined, imageSrc: string | false, container: HTMLElement);
     /** @type {HTMLImageElement | HTMLVideoElement | HTMLDivElement | null} */
     element: HTMLImageElement | HTMLVideoElement | HTMLDivElement | null;
     /**
