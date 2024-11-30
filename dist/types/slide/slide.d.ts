@@ -137,8 +137,8 @@ declare class Slide {
      * @param {number} height
      */
     sizeChanged(width: number, height: number): boolean;
-    /** @returns {HTMLImageElement | HTMLVideoElement | null | undefined} */
-    getPlaceholderElement(): HTMLImageElement | HTMLVideoElement | null | undefined;
+    /** @returns {HTMLImageElement | HTMLVideoElement | HTMLDivElement | null | undefined} */
+    getPlaceholderElement(): HTMLImageElement | HTMLVideoElement | HTMLDivElement | null | undefined;
     /**
      * Zoom current slide image to...
      *
