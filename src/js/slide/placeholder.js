@@ -16,7 +16,7 @@ class Placeholder {
     /** @type {HTMLImageElement | HTMLVideoElement | null} */
     this.element = createElement(
       contentType == undefined
-        ? "pswp__img  pswp__img--placeholder"
+        ? "pswp__img pswp__img--placeholder"
         : "pswp__img pswp__img--placeholder pswp_video pswp__video--placeholder",
       contentType == undefined ? "img" : "video",
       container
