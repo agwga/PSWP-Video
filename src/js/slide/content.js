@@ -113,7 +113,7 @@ class Content {
         this.loadImage(isLazy);
       }
     } else {
-      this.element = createElement("pswp__content", "div");
+      this.element = createElement("pswp__content", "video");
       this.element.innerHTML = this.data.html || "";
     }
 
@@ -402,14 +402,14 @@ class Content {
    */
   displayError() {
     if (this.slide) {
-      let errorMsgEl = createElement("pswp__error-msg", "div");
+      let errorMsgEl = createElement("pswp__error-msg", "video");
       errorMsgEl.innerText = this.instance.options?.errorMsg ?? "";
-      errorMsgEl = /** @type {HTMLDivElement} */ (
+      errorMsgEl = /** @type {HTMLVideoElement} */ (
         this.instance.applyFilters("contentErrorElement", errorMsgEl, this)
       );
       this.element = createElement(
         "pswp__content pswp__error-msg-container",
-        "div"
+        "video"
       );
       this.element.appendChild(errorMsgEl);
       this.slide.container.innerText = "";
