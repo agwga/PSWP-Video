@@ -276,7 +276,7 @@ class Slide {
     return false;
   }
 
-  /** @returns {HTMLImageElement | HTMLDivElement | null | undefined} */
+  /** @returns {HTMLImageElement | HTMLVideoElement | null | undefined} */
   getPlaceholderElement() {
     return this.content.placeholder?.element;
   }

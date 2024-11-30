@@ -512,18 +512,22 @@ class Placeholder {
     // Create placeholder
     // (stretched thumbnail or simple div behind the main image)
 
-    /** @type {HTMLImageElement | HTMLDivElement | null} */
-    this.element = createElement("pswp__img pswp__img--placeholder", imageSrc ? "img" : "div", container);
+    /** @type {HTMLImageElement | HTMLVideoElement | null} */
+    this.element = createElement(imageSrc ? "pswp__img pswp_video pswp__img--placeholder pswp__video--placeholder" : "pswp__img pswp__img--placeholder", imageSrc ? "video" : "img", container);
 
     if (imageSrc) {
-      const imgEl =
-      /** @type {HTMLImageElement} */
+      const videoEl =
+      /** @type {HTMLVideoElement} */
       this.element;
-      imgEl.decoding = "async";
-      imgEl.alt = "";
-      imgEl.src = imageSrc;
-      imgEl.setAttribute("role", "presentation");
-    }
+      videoEl.src = imageSrc;
+    } // if (imageSrc) {
+    //   const imgEl = /** @type {HTMLImageElement} */ (this.element);
+    //   imgEl.decoding = "async";
+    //   imgEl.alt = "";
+    //   imgEl.src = imageSrc;
+    //   imgEl.setAttribute("role", "presentation");
+    // }
+
 
     this.element.setAttribute("aria-hidden", "true");
   }

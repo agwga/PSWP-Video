@@ -45,7 +45,7 @@ class Opener {
     this._animateBgOpacity = false;
     /**
      * @private
-     * @type { HTMLDivElement | HTMLImageElement | null | undefined }
+     * @type { HTMLVideoElement | HTMLImageElement | null | undefined }
      */
     this._placeholder = undefined;
     /**
@@ -255,8 +255,8 @@ class Opener {
     if (
       this.isOpening &&
       this._useAnimation &&
-      this._placeholder &&
-      this._placeholder.tagName === "IMG"
+      this._placeholder
+      // this._placeholder.tagName === "IMG"
     ) {
       // To ensure smooth animation
       // we wait till the current slide image placeholder is decoded,

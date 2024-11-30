@@ -982,7 +982,7 @@ class Slide {
 
     return false;
   }
-  /** @returns {HTMLImageElement | HTMLDivElement | null | undefined} */
+  /** @returns {HTMLImageElement | HTMLVideoElement | null | undefined} */
 
 
   getPlaceholderElement() {
@@ -4775,18 +4775,22 @@ class Placeholder {
     // Create placeholder
     // (stretched thumbnail or simple div behind the main image)
 
-    /** @type {HTMLImageElement | HTMLDivElement | null} */
-    this.element = createElement("pswp__img pswp__img--placeholder", imageSrc ? "img" : "div", container);
+    /** @type {HTMLImageElement | HTMLVideoElement | null} */
+    this.element = createElement(imageSrc ? "pswp__img pswp_video pswp__img--placeholder pswp__video--placeholder" : "pswp__img pswp__img--placeholder", imageSrc ? "video" : "img", container);
 
     if (imageSrc) {
-      const imgEl =
-      /** @type {HTMLImageElement} */
+      const videoEl =
+      /** @type {HTMLVideoElement} */
       this.element;
-      imgEl.decoding = "async";
-      imgEl.alt = "";
-      imgEl.src = imageSrc;
-      imgEl.setAttribute("role", "presentation");
-    }
+      videoEl.src = imageSrc;
+    } // if (imageSrc) {
+    //   const imgEl = /** @type {HTMLImageElement} */ (this.element);
+    //   imgEl.decoding = "async";
+    //   imgEl.alt = "";
+    //   imgEl.src = imageSrc;
+    //   imgEl.setAttribute("role", "presentation");
+    // }
+
 
     this.element.setAttribute("aria-hidden", "true");
   }
@@ -5818,7 +5822,7 @@ class Opener {
     this._animateBgOpacity = false;
     /**
      * @private
-     * @type { HTMLDivElement | HTMLImageElement | null | undefined }
+     * @type { HTMLVideoElement | HTMLImageElement | null | undefined }
      */
 
     this._placeholder = undefined;
@@ -6034,7 +6038,8 @@ class Opener {
 
 
   _start() {
-    if (this.isOpening && this._useAnimation && this._placeholder && this._placeholder.tagName === "IMG") {
+    if (this.isOpening && this._useAnimation && this._placeholder // this._placeholder.tagName === "IMG"
+    ) {
       // To ensure smooth animation
       // we wait till the current slide image placeholder is decoded,
       // but no longer than 250ms,
