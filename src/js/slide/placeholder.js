@@ -18,21 +18,21 @@ class Placeholder {
       imageSrc
         ? "pswp__img pswp_video pswp__img--placeholder pswp__video--placeholder"
         : "pswp__img pswp__img--placeholder aaa",
-      imageSrc ? "video" : "img",
+      imageSrc ? "img" : "video",
       container
     );
 
-    if (imageSrc) {
-      const videoEl = /** @type {HTMLVideoElement} */ (this.element);
-      videoEl.src = imageSrc;
-    }
     // if (imageSrc) {
-    //   const imgEl = /** @type {HTMLImageElement} */ (this.element);
-    //   imgEl.decoding = "async";
-    //   imgEl.alt = "";
-    //   imgEl.src = imageSrc;
-    //   imgEl.setAttribute("role", "presentation");
+    //   const videoEl = /** @type {HTMLVideoElement} */ (this.element);
+    //   videoEl.src = imageSrc;
     // }
+    if (imageSrc) {
+      const imgEl = /** @type {HTMLImageElement} */ (this.element);
+      imgEl.decoding = "async";
+      imgEl.alt = "";
+      imgEl.src = imageSrc;
+      imgEl.setAttribute("role", "presentation");
+    }
 
     this.element.setAttribute("aria-hidden", "true");
   }
