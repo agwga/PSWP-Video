@@ -45,7 +45,7 @@ class Opener {
     this._animateBgOpacity = false;
     /**
      * @private
-     * @type { HTMLImageElement | HTMLVideoElement |null | undefined }
+     * @type { HTMLImageElement | HTMLVideoElement | HTMLDivElement |null | undefined }
      */
     this._placeholder = undefined;
     /**
