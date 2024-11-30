@@ -17,7 +17,7 @@ class Placeholder {
     this.element = createElement(
       imageSrc
         ? "pswp__img pswp_video pswp__img--placeholder pswp__video--placeholder"
-        : "pswp__img pswp__img--placeholder",
+        : "pswp__img pswp__img--placeholder aaa",
       imageSrc ? "video" : "img",
       container
     );

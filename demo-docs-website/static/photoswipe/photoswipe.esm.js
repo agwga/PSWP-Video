@@ -4776,7 +4776,7 @@ class Placeholder {
     // (stretched thumbnail or simple div behind the main image)
 
     /** @type {HTMLImageElement | HTMLVideoElement | null} */
-    this.element = createElement(imageSrc ? "pswp__img pswp_video pswp__img--placeholder pswp__video--placeholder" : "pswp__img pswp__img--placeholder", imageSrc ? "video" : "img", container);
+    this.element = createElement(imageSrc ? "pswp__img pswp_video pswp__img--placeholder pswp__video--placeholder" : "pswp__img pswp__img--placeholder aaa", imageSrc ? "video" : "img", container);
 
     if (imageSrc) {
       const videoEl =
