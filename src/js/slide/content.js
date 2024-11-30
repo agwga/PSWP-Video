@@ -81,7 +81,7 @@ class Content {
           this
         );
         this.placeholder = new Placeholder(
-          "video",
+          this.data.type,
           placeholderSrc,
           this.slide.container
         );
