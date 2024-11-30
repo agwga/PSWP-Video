@@ -6,16 +6,17 @@ import {
 
 class Placeholder {
   /**
-   * @param {string | false} imageSrc
    * @param {string | undefined} contentType
+   * @param {string | false} imageSrc
    * @param {HTMLElement} container
    */
-  constructor(imageSrc, contentType, container) {
+  constructor(contentType, imageSrc, container) {
     // Create placeholder
     // (stretched thumbnail or simple div behind the main image)
-    /** @type {HTMLImageElement | HTMLVideoElement | HTMLDivElement | null} */
+    /** @type {HTMLImageElement | HTMLVideoElement | null} */
     this.element = createElement(
       "pswp__img pswp__img--placeholder",
+      // imageSrc ? "img" : "video",
       contentType == undefined
         ? "img"
         : contentType == "video"
@@ -24,20 +25,19 @@ class Placeholder {
       container
     );
 
-    if (contentType == undefined) {
-      if (imageSrc) {
-        const imgEl = /** @type {HTMLImageElement} */ (this.element);
-        imgEl.decoding = "async";
-        imgEl.alt = "";
-        imgEl.src = imageSrc;
-        imgEl.setAttribute("role", "presentation");
-      }
-    } else {
-      if (imageSrc) {
-        const videoEl = /** @type {HTMLVideoElement} */ (this.element);
-        videoEl.src = imageSrc;
-      }
-    }
+    // if (imageSrc) {
+    //   const imgEl = /** @type {HTMLImageElement} */ (this.element);
+    //   imgEl.decoding = "async";
+    //   imgEl.alt = "";
+    //   imgEl.src = imageSrc;
+    //   imgEl.setAttribute("role", "presentation");
+    // } else {
+    //   const videoEl = /** @type {HTMLVideoElement} */ (this.element);
+    //   videoEl.setAttribute("muted", "muted");
+    //   videoEl.setAttribute("autoplay", "");
+    //   videoEl.setAttribute("loop", "");
+    //   videoEl.setAttribute("playsInline", "");
+    // }
 
     this.element.setAttribute("aria-hidden", "true");
   }

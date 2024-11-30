@@ -32,7 +32,7 @@ declare class Opener {
     private _animateBgOpacity;
     /**
      * @private
-     * @type { HTMLImageElement | HTMLVideoElement | HTMLDivElement |null | undefined }
+     * @type { HTMLDivElement | HTMLVideoElement | HTMLImageElement | null | undefined }
      */
     private _placeholder;
     /**
