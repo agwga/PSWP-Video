@@ -504,15 +504,16 @@ class Eventable {
 
 class Placeholder {
   /**
+   * @param {string | undefined} contentType
    * @param {string | false} imageSrc
    * @param {HTMLElement} container
    */
-  constructor(imageSrc, container) {
+  constructor(contentType, imageSrc, container) {
     // Create placeholder
     // (stretched thumbnail or simple div behind the main image)
 
-    /** @type {HTMLImageElement | HTMLVideoElement | null} */
-    this.element = createElement("pswp__img pswp__img--placeholder", imageSrc ? "img" : "video", container);
+    /** @type {HTMLImageElement | HTMLDivElement | null} */
+    this.element = createElement("pswp__img pswp__img--placeholder", imageSrc ? "img" : "div", container);
 
     if (imageSrc) {
       const imgEl =
@@ -579,7 +580,7 @@ class Content {
     this.instance = instance;
     this.data = itemData;
     this.index = index;
-    /** @type {HTMLImageElement | HTMLDivElement | undefined} */
+    /** @type {HTMLImageElement | HTMLVideoElement | undefined} */
 
     this.element = undefined;
     /** @type {Placeholder | undefined} */
@@ -637,7 +638,7 @@ class Content {
         const placeholderSrc = this.instance.applyFilters("placeholderSrc", // use  image-based placeholder only for the first slide,
         // as rendering (even small stretched thumbnail) is an expensive operation
         this.data.msrc && this.slide.isFirstSlide ? this.data.msrc : false, this);
-        this.placeholder = new Placeholder(placeholderSrc, this.slide.container);
+        this.placeholder = new Placeholder(this.data.type, placeholderSrc, this.slide.container);
       } else {
         const placeholderEl = this.placeholder.element; // Add placeholder to DOM if it was already created
 
@@ -666,7 +667,7 @@ class Content {
         this.loadImage(isLazy);
       }
     } else {
-      this.element = createElement("pswp__content", "div");
+      this.element = createElement("pswp__content", "video");
       this.element.innerHTML = this.data.html || "";
     }
 
@@ -945,12 +946,12 @@ class Content {
     if (this.slide) {
       var _this$instance$option, _this$instance$option2;
 
-      let errorMsgEl = createElement("pswp__error-msg", "div");
+      let errorMsgEl = createElement("pswp__error-msg", "video");
       errorMsgEl.innerText = (_this$instance$option = (_this$instance$option2 = this.instance.options) === null || _this$instance$option2 === void 0 ? void 0 : _this$instance$option2.errorMsg) !== null && _this$instance$option !== void 0 ? _this$instance$option : "";
       errorMsgEl =
-      /** @type {HTMLDivElement} */
+      /** @type {HTMLVideoElement} */
       this.instance.applyFilters("contentErrorElement", errorMsgEl, this);
-      this.element = createElement("pswp__content pswp__error-msg-container", "div");
+      this.element = createElement("pswp__content pswp__error-msg-container", "video");
       this.element.appendChild(errorMsgEl);
       this.slide.container.innerText = "";
       this.slide.container.appendChild(this.element);

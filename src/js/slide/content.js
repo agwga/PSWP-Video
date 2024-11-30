@@ -22,7 +22,7 @@ class Content {
     this.data = itemData;
     this.index = index;
 
-    /** @type {HTMLImageElement | HTMLDivElement | undefined} */
+    /** @type {HTMLImageElement | HTMLVideoElement | undefined} */
     this.element = undefined;
     /** @type {Placeholder | undefined} */
     this.placeholder = undefined;
@@ -81,6 +81,7 @@ class Content {
           this
         );
         this.placeholder = new Placeholder(
+          this.data.type,
           placeholderSrc,
           this.slide.container
         );

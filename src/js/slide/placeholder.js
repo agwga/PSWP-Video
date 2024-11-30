@@ -6,16 +6,17 @@ import {
 
 class Placeholder {
   /**
+   * @param {string | undefined} contentType
    * @param {string | false} imageSrc
    * @param {HTMLElement} container
    */
-  constructor(imageSrc, container) {
+  constructor(contentType, imageSrc, container) {
     // Create placeholder
     // (stretched thumbnail or simple div behind the main image)
-    /** @type {HTMLImageElement | HTMLVideoElement | null} */
+    /** @type {HTMLImageElement | HTMLDivElement | null} */
     this.element = createElement(
       "pswp__img pswp__img--placeholder",
-      imageSrc ? "img" : "video",
+      imageSrc ? "img" : "div",
       container
     );
 
