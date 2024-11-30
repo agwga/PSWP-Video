@@ -81,8 +81,8 @@ class Content {
           this
         );
         this.placeholder = new Placeholder(
-          placeholderSrc,
           this.data.type,
+          placeholderSrc,
           this.slide.container
         );
       } else {
