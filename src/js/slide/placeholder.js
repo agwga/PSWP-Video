@@ -13,27 +13,31 @@ class Placeholder {
   constructor(imageSrc, contentType, container) {
     // Create placeholder
     // (stretched thumbnail or simple div behind the main image)
-    /** @type {HTMLImageElement | HTMLVideoElement | null} */
+    /** @type {HTMLImageElement | HTMLVideoElement | HTMLDivElement | null} */
     this.element = createElement(
       "pswp__img pswp__img--placeholder",
-      contentType === "video" ? "video" : "img",
+      contentType == undefined
+        ? "img"
+        : contentType == "video"
+        ? "video"
+        : "div",
       container
     );
 
-    // if (contentType == undefined) {
-    //   if (imageSrc) {
-    //     const imgEl = /** @type {HTMLImageElement} */ (this.element);
-    //     imgEl.decoding = "async";
-    //     imgEl.alt = "";
-    //     imgEl.src = imageSrc;
-    //     imgEl.setAttribute("role", "presentation");
-    //   }
-    // } else {
-    if (imageSrc) {
-      const videoEl = /** @type {HTMLVideoElement} */ (this.element);
-      videoEl.src = imageSrc;
+    if (contentType == undefined) {
+      if (imageSrc) {
+        const imgEl = /** @type {HTMLImageElement} */ (this.element);
+        imgEl.decoding = "async";
+        imgEl.alt = "";
+        imgEl.src = imageSrc;
+        imgEl.setAttribute("role", "presentation");
+      }
+    } else {
+      if (imageSrc) {
+        const videoEl = /** @type {HTMLVideoElement} */ (this.element);
+        videoEl.src = imageSrc;
+      }
     }
-    // }
 
     this.element.setAttribute("aria-hidden", "true");
   }

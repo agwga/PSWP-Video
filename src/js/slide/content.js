@@ -82,7 +82,7 @@ class Content {
         );
         this.placeholder = new Placeholder(
           placeholderSrc,
-          "video",
+          this.data.type,
           this.slide.container
         );
       } else {

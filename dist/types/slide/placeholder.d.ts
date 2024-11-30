@@ -6,8 +6,8 @@ declare class Placeholder {
      * @param {HTMLElement} container
      */
     constructor(imageSrc: string | false, contentType: string | undefined, container: HTMLElement);
-    /** @type {HTMLImageElement | HTMLVideoElement | null} */
-    element: HTMLImageElement | HTMLVideoElement | null;
+    /** @type {HTMLImageElement | HTMLVideoElement | HTMLDivElement | null} */
+    element: HTMLImageElement | HTMLVideoElement | HTMLDivElement | null;
     /**
      * @param {number} width
      * @param {number} height
