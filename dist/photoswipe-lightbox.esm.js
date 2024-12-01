@@ -528,8 +528,8 @@ class Placeholder {
       /** @type {HTMLVideoElement} */
       this.element;
       videoEl.src = imageSrc;
-      videoEl.setAttribute("muted", "muted");
-      videoEl.setAttribute("autoPlay", "");
+      videoEl.setAttribute("muted", "muted"); // videoEl.setAttribute("autoPlay", "");
+
       videoEl.setAttribute("loop", "");
       videoEl.setAttribute("playsInline", "");
       videoEl.setAttribute("role", "presentation");
