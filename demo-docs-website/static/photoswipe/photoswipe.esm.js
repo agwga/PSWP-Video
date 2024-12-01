@@ -1919,7 +1919,7 @@ class ZoomHandler {
 function didTapOnMainContent(event) {
   return !!
   /** @type {HTMLElement} */
-  event.target.closest('.pswp__container');
+  event.target.closest(".pswp__container");
 }
 /**
  * Tap, double-tap handler.
@@ -1943,13 +1943,13 @@ class TapHandler {
     const targetClassList =
     /** @type {HTMLElement} */
     originalEvent.target.classList;
-    const isImageClick = targetClassList.contains('pswp__img');
-    const isBackgroundClick = targetClassList.contains('pswp__item') || targetClassList.contains('pswp__zoom-wrap');
+    const isImageClick = targetClassList.contains("pswp__img");
+    const isBackgroundClick = targetClassList.contains("pswp__item") || targetClassList.contains("pswp__zoom-wrap");
 
     if (isImageClick) {
-      this._doClickOrTapAction('imageClick', point, originalEvent);
+      this._doClickOrTapAction("imageClick", point, originalEvent);
     } else if (isBackgroundClick) {
-      this._doClickOrTapAction('bgClick', point, originalEvent);
+      this._doClickOrTapAction("bgClick", point, originalEvent);
     }
   }
   /**
@@ -1960,7 +1960,7 @@ class TapHandler {
 
   tap(point, originalEvent) {
     if (didTapOnMainContent(originalEvent)) {
-      this._doClickOrTapAction('tap', point, originalEvent);
+      this._doClickOrTapAction("tap", point, originalEvent);
     }
   }
   /**
@@ -1971,7 +1971,7 @@ class TapHandler {
 
   doubleTap(point, originalEvent) {
     if (didTapOnMainContent(originalEvent)) {
-      this._doClickOrTapAction('doubleTap', point, originalEvent);
+      this._doClickOrTapAction("doubleTap", point, originalEvent);
     }
   }
   /**
@@ -1993,7 +1993,7 @@ class TapHandler {
     } = pswp;
     const actionFullName =
     /** @type {AddPostfix<Actions, 'Action'>} */
-    actionName + 'Action';
+    actionName + "Action";
     const optionValue = pswp.options[actionFullName];
 
     if (pswp.dispatch(actionFullName, {
@@ -2003,22 +2003,22 @@ class TapHandler {
       return;
     }
 
-    if (typeof optionValue === 'function') {
+    if (typeof optionValue === "function") {
       optionValue.call(pswp, point, originalEvent);
       return;
     }
 
     switch (optionValue) {
-      case 'close':
-      case 'next':
+      case "close":
+      case "next":
         pswp[optionValue]();
         break;
 
-      case 'zoom':
+      case "zoom":
         currSlide === null || currSlide === void 0 || currSlide.toggleZoom(point);
         break;
 
-      case 'zoom-or-close':
+      case "zoom-or-close":
         // by default click zooms current image,
         // if it can not be zoomed - gallery will be closed
         if (currSlide !== null && currSlide !== void 0 && currSlide.isZoomable() && currSlide.zoomLevels.secondary !== currSlide.zoomLevels.initial) {
@@ -2029,8 +2029,8 @@ class TapHandler {
 
         break;
 
-      case 'toggle-controls':
-        (_this$gestures$pswp$e = this.gestures.pswp.element) === null || _this$gestures$pswp$e === void 0 || _this$gestures$pswp$e.classList.toggle('pswp--ui-visible'); // if (_controlsVisible) {
+      case "toggle-controls":
+        (_this$gestures$pswp$e = this.gestures.pswp.element) === null || _this$gestures$pswp$e === void 0 || _this$gestures$pswp$e.classList.toggle("pswp--ui-visible"); // if (_controlsVisible) {
         //   _ui.hideControls();
         // } else {
         //   _ui.showControls();
@@ -4776,7 +4776,7 @@ class Placeholder {
     // (stretched thumbnail or simple div behind the main image)
 
     /** @type {HTMLImageElement | HTMLVideoElement | null} */
-    this.element = createElement(contentType === undefined || contentType === "image" ? "pswp__img pswp__img--placeholder" : "pswp__img pswp__img--placeholder pswp_video pswp__video--placeholder", contentType === undefined ? "img" : "video", container);
+    this.element = createElement(contentType === "image" ? "pswp__img pswp__img--placeholder" : "pswp_video pswp__video--placeholder", contentType === "image" ? "img" : "video", container);
 
     if (imageSrc) {
       if (contentType === "image") {

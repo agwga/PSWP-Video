@@ -15,10 +15,10 @@ class Placeholder {
     // (stretched thumbnail or simple div behind the main image)
     /** @type {HTMLImageElement | HTMLVideoElement | null} */
     this.element = createElement(
-      contentType === undefined || contentType === "image"
+      contentType === "image"
         ? "pswp__img pswp__img--placeholder"
-        : "pswp__img pswp__img--placeholder pswp_video pswp__video--placeholder",
-      contentType === undefined ? "img" : "video",
+        : "pswp_video pswp__video--placeholder",
+      contentType === "image" ? "img" : "video",
       container
     );
 
