@@ -7,7 +7,7 @@ import {
 class Placeholder {
   /**
    * @param {string | undefined} contentType
-   * @param {string | false} imageSrc
+   * @param {string | string} imageSrc
    * @param {HTMLElement} container
    */
   constructor(contentType, imageSrc, container) {
@@ -22,24 +22,24 @@ class Placeholder {
       container
     );
 
-    if (imageSrc) {
-      if (contentType === "image") {
-        const imgEl = /** @type {HTMLImageElement} */ (this.element);
-        imgEl.decoding = "async";
-        imgEl.alt = "";
-        imgEl.src = imageSrc;
-        imgEl.setAttribute("role", contentType);
-        // imgEl.setAttribute("role", "presentation");
-      } else if (contentType === "video") {
-        const videoEl = /** @type {HTMLVideoElement} */ (this.element);
-        videoEl.src = imageSrc;
-        videoEl.setAttribute("muted", "muted");
-        videoEl.setAttribute("autoPlay", "");
-        videoEl.setAttribute("loop", "");
-        videoEl.setAttribute("playsInline", "");
-        videoEl.setAttribute("role", contentType);
-      }
+    // if (imageSrc) {
+    if (contentType == "image") {
+      const imgEl = /** @type {HTMLImageElement} */ (this.element);
+      imgEl.decoding = "async";
+      imgEl.alt = "";
+      imgEl.src = imageSrc;
+      imgEl.setAttribute("role", contentType);
+      // imgEl.setAttribute("role", "presentation");
+    } else if (contentType == "video") {
+      const videoEl = /** @type {HTMLVideoElement} */ (this.element);
+      videoEl.src = imageSrc;
+      videoEl.setAttribute("muted", "muted");
+      videoEl.setAttribute("autoPlay", "");
+      videoEl.setAttribute("loop", "");
+      videoEl.setAttribute("playsInline", "");
+      videoEl.setAttribute("role", contentType);
     }
+    // }
 
     this.element.setAttribute("aria-hidden", "true");
   }

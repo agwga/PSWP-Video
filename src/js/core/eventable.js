@@ -143,7 +143,7 @@
  * Modify clicked gallery item index.
  * https://photoswipe.com/filters/#clickedindex
  *
- * @prop {(placeholderSrc: string | false, content: Content) => string | false} placeholderSrc
+ * @prop {(placeholderSrc: string | string, content: Content) => string | string} placeholderSrc
  * Modify placeholder image source.
  * https://photoswipe.com/filters/#placeholdersrc
  *
@@ -272,7 +272,9 @@ class Eventable {
   removeFilter(name, fn) {
     if (this._filters[name]) {
       // @ts-expect-error
-      this._filters[name] = this._filters[name].filter(filter => (filter.fn !== fn));
+      this._filters[name] = this._filters[name].filter(
+        (filter) => filter.fn !== fn
+      );
     }
 
     if (this.pswp) {
@@ -319,7 +321,9 @@ class Eventable {
   off(name, fn) {
     if (this._listeners[name]) {
       // @ts-expect-error
-      this._listeners[name] = this._listeners[name].filter(listener => (fn !== listener));
+      this._listeners[name] = this._listeners[name].filter(
+        (listener) => fn !== listener
+      );
     }
 
     this.pswp?.off(name, fn);
@@ -336,7 +340,9 @@ class Eventable {
       return this.pswp.dispatch(name, details);
     }
 
-    const event = /** @type {AugmentedEvent<T>} */ (new PhotoSwipeEvent(name, details));
+    const event = /** @type {AugmentedEvent<T>} */ (
+      new PhotoSwipeEvent(name, details)
+    );
 
     this._listeners[name]?.forEach((listener) => {
       listener.call(this, event);

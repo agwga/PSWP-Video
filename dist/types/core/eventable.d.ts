@@ -325,7 +325,7 @@ export type PhotoSwipeFiltersMap = {
      * Modify placeholder image source.
      * https://photoswipe.com/filters/#placeholdersrc
      */
-    placeholderSrc: (placeholderSrc: string | false, content: Content) => string | false;
+    placeholderSrc: (placeholderSrc: string | string, content: Content) => string | string;
     /**
      * Modify if the content is currently loading.
      * https://photoswipe.com/filters/#iscontentloading
@@ -914,7 +914,7 @@ declare class Eventable {
  * Modify clicked gallery item index.
  * https://photoswipe.com/filters/#clickedindex
  *
- * @prop {(placeholderSrc: string | false, content: Content) => string | false} placeholderSrc
+ * @prop {(placeholderSrc: string | string, content: Content) => string | string} placeholderSrc
  * Modify placeholder image source.
  * https://photoswipe.com/filters/#placeholdersrc
  *

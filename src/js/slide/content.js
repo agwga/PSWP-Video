@@ -77,7 +77,7 @@ class Content {
           "placeholderSrc",
           // use  image-based placeholder only for the first slide,
           // as rendering (even small stretched thumbnail) is an expensive operation
-          this.data.msrc && this.slide.isFirstSlide ? this.data.msrc : false,
+          this.data.msrc && this.slide.isFirstSlide ? this.data.msrc : "",
           this
         );
         this.placeholder = new Placeholder(
