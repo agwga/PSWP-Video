@@ -15,28 +15,29 @@ class Placeholder {
     // (stretched thumbnail or simple div behind the main image)
     /** @type {HTMLImageElement | HTMLVideoElement | null} */
     this.element = createElement(
-      contentType == undefined
+      contentType === undefined || contentType === "image"
         ? "pswp__img pswp__img--placeholder"
         : "pswp__img pswp__img--placeholder pswp_video pswp__video--placeholder",
-      contentType == undefined ? "img" : "video",
+      contentType === undefined ? "img" : "video",
       container
     );
 
-    // if (imageSrc) {
-    //   const videoEl = /** @type {HTMLVideoElement} */ (this.element);
-    //   videoEl.src = imageSrc;
-    // }
     if (imageSrc) {
-      if (contentType == undefined) {
+      if (contentType === "image") {
         const imgEl = /** @type {HTMLImageElement} */ (this.element);
         imgEl.decoding = "async";
         imgEl.alt = "";
         imgEl.src = imageSrc;
-        imgEl.setAttribute("role", "presentation");
-      } else {
+        imgEl.setAttribute("role", contentType);
+        // imgEl.setAttribute("role", "presentation");
+      } else if (contentType === "image") {
         const videoEl = /** @type {HTMLVideoElement} */ (this.element);
         videoEl.src = imageSrc;
-        videoEl.setAttribute("role", "presentation");
+        videoEl.setAttribute("muted", "muted");
+        videoEl.setAttribute("autoPlay", "");
+        videoEl.setAttribute("loop", "");
+        videoEl.setAttribute("playsInline", "");
+        videoEl.setAttribute("role", contentType);
       }
     }
 
