@@ -4787,7 +4787,7 @@ class Placeholder {
         imgEl.alt = "";
         imgEl.src = imageSrc;
         imgEl.setAttribute("role", contentType); // imgEl.setAttribute("role", "presentation");
-      } else if (contentType == "image") {
+      } else if (contentType == "video") {
         const videoEl =
         /** @type {HTMLVideoElement} */
         this.element;
