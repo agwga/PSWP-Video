@@ -23,14 +23,14 @@ class Placeholder {
     );
 
     if (imageSrc) {
-      if (contentType == "image") {
+      if (contentType === "image") {
         const imgEl = /** @type {HTMLImageElement} */ (this.element);
         imgEl.decoding = "async";
         imgEl.alt = "";
         imgEl.src = imageSrc;
         imgEl.setAttribute("role", contentType);
         // imgEl.setAttribute("role", "presentation");
-      } else if (contentType == "video") {
+      } else if (contentType === "video") {
         const videoEl = /** @type {HTMLVideoElement} */ (this.element);
         videoEl.src = imageSrc;
         videoEl.setAttribute("muted", "muted");

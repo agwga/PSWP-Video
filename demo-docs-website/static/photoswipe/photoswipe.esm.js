@@ -4779,7 +4779,7 @@ class Placeholder {
     this.element = createElement(contentType == "image" ? "pswp__img pswp__img--placeholder" : "pswp__video pswp__video--placeholder", contentType == "image" ? "img" : "video", container);
 
     if (imageSrc) {
-      if (contentType == "image") {
+      if (contentType === "image") {
         const imgEl =
         /** @type {HTMLImageElement} */
         this.element;
@@ -4787,7 +4787,7 @@ class Placeholder {
         imgEl.alt = "";
         imgEl.src = imageSrc;
         imgEl.setAttribute("role", contentType); // imgEl.setAttribute("role", "presentation");
-      } else if (contentType == "video") {
+      } else if (contentType === "video") {
         const videoEl =
         /** @type {HTMLVideoElement} */
         this.element;
