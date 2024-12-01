@@ -16,8 +16,8 @@ class Placeholder {
     /** @type {HTMLImageElement | HTMLVideoElement | null} */
     this.element = createElement(
       contentType === "image"
-        ? "pswp__img pswp__img--placeholder"
-        : "pswp_video pswp__video--placeholder",
+        ? "pswp__img pswp__img--placeholder xxx"
+        : "pswp__video pswp__video--placeholder",
       contentType === "image" ? "img" : "video",
       container
     );

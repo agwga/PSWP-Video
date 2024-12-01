@@ -95,6 +95,10 @@
   height: auto;
 }
 
+.pswp__video {
+  object-fit: cover;
+}
+
 .pswp--click-to-zoom.pswp--zoom-allowed .pswp__img {
   cursor: -webkit-zoom-in;
   cursor: -moz-zoom-in;
