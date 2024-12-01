@@ -628,7 +628,8 @@ class Content {
   }
 
   removePlaceholder() {
-    if (this.placeholder && !this.keepPlaceholder()) {
+    if (!this.keepPlaceholder()) {
+      // if (this.placeholder && !this.keepPlaceholder()) {
       // With delay, as image might be loaded, but not rendered
       setTimeout(() => {
         if (this.placeholder) {
