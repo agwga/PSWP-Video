@@ -4776,10 +4776,7 @@ class Placeholder {
     // (stretched thumbnail or simple div behind the main image)
 
     /** @type {HTMLImageElement | HTMLVideoElement | null} */
-    this.element = createElement("pswp__img pswp__img--placeholder", // contentType == "image"
-    //   ? "pswp__img pswp__img--placeholder"
-    //   : "pswp__video pswp__video--placeholder",
-    contentType == "image" ? "img" : "video", container); // if (imageSrc) {
+    this.element = createElement(contentType == "image" ? "pswp__img pswp__img--placeholder" : "pswp__video pswp__video--placeholder", contentType == "image" ? "img" : "video", container);
 
     if (contentType == "image") {
       const imgEl =
@@ -4799,8 +4796,7 @@ class Placeholder {
       videoEl.setAttribute("loop", "");
       videoEl.setAttribute("playsInline", "");
       videoEl.setAttribute("role", "presentation");
-    } // }
-
+    }
 
     this.element.setAttribute("aria-hidden", "true");
   }
@@ -4891,8 +4887,7 @@ class Content {
   }
 
   removePlaceholder() {
-    if (!this.keepPlaceholder()) {
-      // if (this.placeholder && !this.keepPlaceholder()) {
+    if (this.placeholder && !this.keepPlaceholder()) {
       // With delay, as image might be loaded, but not rendered
       setTimeout(() => {
         if (this.placeholder) {

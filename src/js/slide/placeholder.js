@@ -15,15 +15,13 @@ class Placeholder {
     // (stretched thumbnail or simple div behind the main image)
     /** @type {HTMLImageElement | HTMLVideoElement | null} */
     this.element = createElement(
-      "pswp__img pswp__img--placeholder",
-      // contentType == "image"
-      //   ? "pswp__img pswp__img--placeholder"
-      //   : "pswp__video pswp__video--placeholder",
+      contentType == "image"
+        ? "pswp__img pswp__img--placeholder"
+        : "pswp__video pswp__video--placeholder",
       contentType == "image" ? "img" : "video",
       container
     );
 
-    // if (imageSrc) {
     if (contentType == "image") {
       const imgEl = /** @type {HTMLImageElement} */ (this.element);
       imgEl.decoding = "async";
@@ -39,7 +37,6 @@ class Placeholder {
       videoEl.setAttribute("playsInline", "");
       videoEl.setAttribute("role", "presentation");
     }
-    // }
 
     this.element.setAttribute("aria-hidden", "true");
   }
