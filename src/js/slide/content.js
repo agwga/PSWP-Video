@@ -75,7 +75,7 @@ class Content {
       if (!this.placeholder) {
         const placeholderSrc = this.instance.applyFilters(
           "placeholderSrc",
-          // use  image-based placeholder only for the first slide,
+          // use image-based placeholder only for the first slide,
           // as rendering (even small stretched thumbnail) is an expensive operation
           this.data.msrc && this.slide.isFirstSlide ? this.data.msrc : "",
           this
@@ -113,7 +113,7 @@ class Content {
         this.loadImage(isLazy);
       }
     } else {
-      this.element = createElement("pswp__content", "video");
+      this.element = createElement("pswp__video", "video");
       this.element.innerHTML = this.data.html || "";
     }
 

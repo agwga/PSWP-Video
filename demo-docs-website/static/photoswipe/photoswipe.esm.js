@@ -4776,7 +4776,10 @@ class Placeholder {
     // (stretched thumbnail or simple div behind the main image)
 
     /** @type {HTMLImageElement | HTMLVideoElement | null} */
-    this.element = createElement(contentType == "image" ? "pswp__img pswp__img--placeholder" : "pswp__video pswp__video--placeholder", contentType == "image" ? "img" : "video", container); // if (imageSrc) {
+    this.element = createElement("pswp__img pswp__img--placeholder", // contentType == "image"
+    //   ? "pswp__img pswp__img--placeholder"
+    //   : "pswp__video pswp__video--placeholder",
+    contentType == "image" ? "img" : "video", container); // if (imageSrc) {
 
     if (contentType == "image") {
       const imgEl =
@@ -4785,7 +4788,7 @@ class Placeholder {
       imgEl.decoding = "async";
       imgEl.alt = "";
       imgEl.src = imageSrc;
-      imgEl.setAttribute("role", contentType); // imgEl.setAttribute("role", "presentation");
+      imgEl.setAttribute("role", "presentation");
     } else if (contentType == "video") {
       const videoEl =
       /** @type {HTMLVideoElement} */
@@ -4795,7 +4798,7 @@ class Placeholder {
       videoEl.setAttribute("autoPlay", "");
       videoEl.setAttribute("loop", "");
       videoEl.setAttribute("playsInline", "");
-      videoEl.setAttribute("role", contentType);
+      videoEl.setAttribute("role", "presentation");
     } // }
 
 
@@ -4909,7 +4912,7 @@ class Content {
   load(isLazy, reload) {
     if (this.slide && this.usePlaceholder()) {
       if (!this.placeholder) {
-        const placeholderSrc = this.instance.applyFilters("placeholderSrc", // use  image-based placeholder only for the first slide,
+        const placeholderSrc = this.instance.applyFilters("placeholderSrc", // use image-based placeholder only for the first slide,
         // as rendering (even small stretched thumbnail) is an expensive operation
         this.data.msrc && this.slide.isFirstSlide ? this.data.msrc : "", this);
         this.placeholder = new Placeholder(this.data.type, placeholderSrc, this.slide.container);
@@ -4941,7 +4944,7 @@ class Content {
         this.loadImage(isLazy);
       }
     } else {
-      this.element = createElement("pswp__content", "video");
+      this.element = createElement("pswp__video", "video");
       this.element.innerHTML = this.data.html || "";
     }
 
